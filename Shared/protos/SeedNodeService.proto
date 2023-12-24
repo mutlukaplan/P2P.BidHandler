@@ -12,6 +12,13 @@ message RegisterRequest {
 
 message RegisteredNodesResponse {
     repeated string registered_nodes = 1;
+    repeated Node nodes=2;
 }
 
 message EmptyMsg {}
+
+
+message Node{
+    string node_id=1;
+    string address=2;
+}

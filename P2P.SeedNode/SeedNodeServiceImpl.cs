@@ -34,11 +34,10 @@ namespace P2P.SeedNode
 
         public override Task<RegisteredNodesResponse> GetRegisteredNodes(EmptyMsg request, ServerCallContext context)
         {
-            var response = new RegisteredNodesResponse
-            {
-                RegisteredNodes = { RegistDict.RegisteredNodes.Keys }
-            };
-
+            var nodes = RegistDict.RegisteredNodes.Select(p => new Node { NodeId = p.Key, Address = p.Value }).ToList();
+            RegisteredNodesResponse response= new();
+            response.Nodes.AddRange(nodes);
+            response.RegisteredNodes.AddRange(RegistDict.RegisteredNodes.Keys);
             return Task.FromResult(response);
         }
     }

@@ -7,11 +7,25 @@ namespace ConsoleApp2
 {
     class Program
     {
+        public static GrpcChannel? mainChannel;
+        public static SeedNodeService.SeedNodeServiceClient? seedClient;
+        const int MainChannelPort = 50055;
+
+
+         static Program()
+        {
+            mainChannel = GrpcChannel.ForAddress($"http://localhost:{MainChannelPort}");
+            seedClient = new SeedNodeService.SeedNodeServiceClient(mainChannel);
+        }
+
         static async Task Main(string[] args)
         {
             const int NodePort = 50051;
 
             const string NodeHost = "localhost";
+
+            const int MainChannelPort = 50055;
+
 
             string nodeId = Guid.NewGuid().ToString();
 
@@ -26,6 +40,7 @@ namespace ConsoleApp2
                 Services = { AuctionService.BindService(new AutionServiceImpl(serviceCache)) },
                 Ports = { new ServerPort(NodeHost, NodePort, ServerCredentials.Insecure) }
             };
+
 
             RegisterClientAndStart(NodePort, nodeId, server, NodeHost);
 
@@ -80,10 +95,10 @@ namespace ConsoleApp2
                 switch (selection)
                 {
                     case "1":
-                         GetAllAuctions();
+                        GetAllAuctions();
                         break;
                     case "2":
-                         MakeBid();
+                        MakeBid();
                         break;
                     case "3":
                         // DoSendCoin();
@@ -109,6 +124,11 @@ namespace ConsoleApp2
 
         private static void GetAllAuctions()
         {
+
+            var getallNodes = seedClient.GetRegisteredNodes(new EmptyMsg());
+
+            
+
             throw new NotImplementedException();
         }
     }
