@@ -20,7 +20,7 @@ namespace P2P.SeedNode
 
             if (RegistDict.RegisteredNodes.TryAdd(nodeId, address))
             {
-                message = $"Node '{nodeId}' registered with the seed node.";
+                message = $"Node '{nodeId}' registered with the seed node with the address of {address} .";
                 Console.WriteLine(message);
             }
             else
