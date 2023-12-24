@@ -2,10 +2,15 @@ syntax = "proto3";
 
 service SeedNodeService {
     rpc RegisterNode(RegisterRequest) returns (EmptyMsg);
+    rpc GetRegisteredNodes(EmptyMsg) returns (RegisteredNodesResponse);
 }
 
 message RegisterRequest {
     string node_id = 1;
+}
+
+message RegisteredNodesResponse {
+    repeated string registered_nodes = 1;
 }
 
 message EmptyMsg {}

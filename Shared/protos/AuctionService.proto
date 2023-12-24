@@ -3,6 +3,8 @@ syntax = "proto3";
 service AuctionService {
     rpc InitiateAuction (InitiateAuctionRequest) returns (InitiateAuctionResponse);
     rpc PlaceBid (PlaceBidRequest) returns (PlaceBidResponse);
+    rpc GetAllAuctions(AuctionEmpty) returns (AuctionList);
+    rpc CloseAuction(AuctionResponse) returns (AuctionEmpty);
 }
 
 message InitiateAuctionRequest {
@@ -12,6 +14,7 @@ message InitiateAuctionRequest {
 
 message InitiateAuctionResponse {
     int32 auction_id = 1;
+    string owner_node_id=2;
 }
 
 message PlaceBidRequest {
@@ -23,3 +26,15 @@ message PlaceBidRequest {
 message PlaceBidResponse {
     bool accepted = 1;
 }
+
+message AuctionList{
+    repeated AuctionResponse auctionList = 1;
+}
+
+message AuctionResponse{
+    string auction_id =1;
+    string owner_node_id=2;
+}
+
+
+message AuctionEmpty {}

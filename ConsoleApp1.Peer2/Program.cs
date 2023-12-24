@@ -1,5 +1,6 @@
 ﻿using Grpc.Core;
 using Grpc.Net.Client;
+using Microsoft.Extensions.DependencyInjection;
 using Shared.Services;
 using System.Threading.Channels;
 
@@ -11,47 +12,50 @@ namespace ConsoleApp1.Peer2
         static async Task Main(string[] args)
         {
             const int Port = 50052;
-            const int MainChannelPort = 50055;
+
             string nodeId = Guid.NewGuid().ToString();
+
+            var serviceProvider = new ServiceCollection()
+                    .AddSingleton<IAuctionCache, AuctionCache>() // Register your local service implementation.
+                    .BuildServiceProvider();
+
+            var serviceCache= serviceProvider.GetRequiredService<IAuctionCache>();
 
             var server = new Server
             {
-                Services = { ChatService.BindService(new ChatServiceImpl()), AuctionService.BindService(new AutionServiceImpl()) },
+                Services = { AuctionService.BindService(new AutionServiceImpl(serviceCache)) },
                 Ports = { new ServerPort("localhost", Port, ServerCredentials.Insecure) }
             };
 
-            RegisterClientAndStart(Port, MainChannelPort, nodeId, server);
+            RegisterClientAndStart(Port, nodeId, server);
 
-            var channel = GrpcChannel.ForAddress($"http://localhost:{50052}");//  new Channel("localhost", Port, ChannelCredentials.Insecure);
-            var client = new ChatService.ChatServiceClient(channel);
+            var channel = GrpcChannel.ForAddress($"http://localhost:{50052}");
 
-            Console.WriteLine("Enter your name:");
-            var name = Console.ReadLine();
 
-            Console.WriteLine("Type 'exit' to quit the chat.");
 
-            var chatTask = Task.Run(async () =>
-            {
-                while (true)
-                {
-                    var message = Console.ReadLine();
+            ShowMenu();
+            GetInput();
 
-                    if (message.ToLower() == "exit")
-                        break;
-
-                    await client.SendMessageAsync(new Message { Text = $"{name}: {message}" });
-                }
-
-                channel.ShutdownAsync().Wait();
-            });
-
-            await chatTask;
             server.ShutdownAsync().Wait();
         }
 
-        private static void RegisterClientAndStart(int Port, int MainChannelPort, string nodeId, Server server)
+        private static void ShowMenu()
+        {
+            Console.Clear();
+            Console.WriteLine("\n\n\n");
+            Console.WriteLine("                    P2p bidder ");
+            Console.WriteLine("============================================================");
+            Console.WriteLine("============================================================");
+            Console.WriteLine("                    1. Get All Auctions");
+            Console.WriteLine("                    2. Make a Bid");
+            Console.WriteLine("                    3. Exit");
+            Console.WriteLine("------------------------------------------------------------");
+        }
+
+        private static void RegisterClientAndStart(int Port, string nodeId, Server server)
         {
             server.Start();
+            const int MainChannelPort = 50055;
 
             Console.WriteLine($"Server listening on port {Port}");
 
@@ -65,9 +69,33 @@ namespace ConsoleApp1.Peer2
 
             Console.WriteLine($"Registration response: {response}");
 
-            var response2 = seedClient.RegisterNode(registerRequest);
-
             mainChannel.ShutdownAsync().Wait();
         }
+
+        private static void GetInput()
+        {
+            while (true)
+            {
+                string selection = Console.ReadLine();
+                switch (selection)
+                {
+                    case "1":
+                        // DoCreateAccount();
+                        break;
+                    case "2":
+                        // DoRestore();
+                        break;
+                    case "3":
+                        // DoSendCoin();
+                        break;
+
+                    case "4":
+                        //DoExit();
+                        break;
+                }
+            }
+
+        }
+
     }
 }

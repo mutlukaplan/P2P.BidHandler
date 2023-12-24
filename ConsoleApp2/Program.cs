@@ -1,9 +1,7 @@
 ﻿using Grpc.Core;
 using Grpc.Net.Client;
+using Microsoft.Extensions.DependencyInjection;
 using Shared.Services;
-using System;
-using System.Threading.Channels;
-using System.Threading.Tasks;
 
 namespace ConsoleApp2
 {
@@ -13,41 +11,88 @@ namespace ConsoleApp2
         {
             const int Port = 50051;
 
+            string nodeId = Guid.NewGuid().ToString();
+
+            var serviceProvider = new ServiceCollection()
+                    .AddSingleton<IAuctionCache, AuctionCache>() // Register your local service implementation.
+                    .BuildServiceProvider();
+
+            var serviceCache = serviceProvider.GetRequiredService<IAuctionCache>();
+
             var server = new Server
             {
-                Services = { ChatService.BindService(new ChatServiceImpl()), AuctionService.BindService(new AutionServiceImpl()) },
+                Services = { AuctionService.BindService(new AutionServiceImpl(serviceCache)) },
                 Ports = { new ServerPort("localhost", Port, ServerCredentials.Insecure) }
             };
 
+            RegisterClientAndStart(Port, nodeId, server);
+
+            var channel = GrpcChannel.ForAddress($"http://localhost:{50052}");
+
+
+
+            ShowMenu();
+            GetInput();
+
+            server.ShutdownAsync().Wait();
+        }
+
+        private static void ShowMenu()
+        {
+            Console.Clear();
+            Console.WriteLine("\n\n\n");
+            Console.WriteLine("                    P2p bidder ");
+            Console.WriteLine("============================================================");
+            Console.WriteLine("============================================================");
+            Console.WriteLine("                    1. Get All Auctions");
+            Console.WriteLine("                    2. Make a Bid");
+            Console.WriteLine("                    3. Exit");
+            Console.WriteLine("------------------------------------------------------------");
+        }
+
+        private static void RegisterClientAndStart(int Port, string nodeId, Server server)
+        {
             server.Start();
+            const int MainChannelPort = 50055;
 
             Console.WriteLine($"Server listening on port {Port}");
 
-            var channel =  GrpcChannel.ForAddress($"http://localhost:{Port}");//  new Channel("localhost", Port, ChannelCredentials.Insecure);
-            var client = new ChatService.ChatServiceClient(channel);
+            var mainChannel = GrpcChannel.ForAddress($"http://localhost:{MainChannelPort}");
 
-            Console.WriteLine("Enter your name:");
-            var name = Console.ReadLine();
+            var seedClient = new SeedNodeService.SeedNodeServiceClient(mainChannel);
 
-            Console.WriteLine("Type 'exit' to quit the chat.");
+            var registerRequest = new RegisterRequest { NodeId = nodeId };
 
-            var chatTask = Task.Run(async () =>
+            var response = seedClient.RegisterNode(registerRequest);
+
+            Console.WriteLine($"Registration response: {response}");
+
+            mainChannel.ShutdownAsync().Wait();
+        }
+
+        private static void GetInput()
+        {
+            while (true)
             {
-                while (true)
+                string selection = Console.ReadLine();
+                switch (selection)
                 {
-                    var message = Console.ReadLine();
-
-                    if (message.ToLower() == "exit")
+                    case "1":
+                        // DoCreateAccount();
+                        break;
+                    case "2":
+                        // DoRestore();
+                        break;
+                    case "3":
+                        // DoSendCoin();
                         break;
 
-                    await client.SendMessageAsync(new Message { Text = $"{name}: {message}" });
+                    case "4":
+                        //DoExit();
+                        break;
                 }
+            }
 
-                channel.ShutdownAsync().Wait();
-            });
-
-            await chatTask;
-            server.ShutdownAsync().Wait();
         }
     }
 

@@ -29,5 +29,15 @@ namespace P2P.SeedNode
 
             return Task.FromResult(new EmptyMsg());
         }
+
+        public override Task<RegisteredNodesResponse> GetRegisteredNodes(EmptyMsg request, ServerCallContext context)
+        {
+            var response = new RegisteredNodesResponse
+            {
+                RegisteredNodes = { RegistDict.RegisteredNodes.Keys }
+            };
+
+            return Task.FromResult(response);
+        }
     }
 }

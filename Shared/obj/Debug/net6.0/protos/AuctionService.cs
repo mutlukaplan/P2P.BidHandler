@@ -24,20 +24,29 @@ public static partial class AuctionServiceReflection {
         string.Concat(
           "Chtwcm90b3MvQXVjdGlvblNlcnZpY2UucHJvdG8iQwoWSW5pdGlhdGVBdWN0",
           "aW9uUmVxdWVzdBIRCglpdGVtX25hbWUYASABKAkSFgoOc3RhcnRpbmdfcHJp",
-          "Y2UYAiABKAEiLQoXSW5pdGlhdGVBdWN0aW9uUmVzcG9uc2USEgoKYXVjdGlv",
-          "bl9pZBgBIAEoBSJJCg9QbGFjZUJpZFJlcXVlc3QSEgoKYXVjdGlvbl9pZBgB",
-          "IAEoBRISCgpiaWRfYW1vdW50GAIgASgBEg4KBmJpZGRlchgDIAEoCSIkChBQ",
-          "bGFjZUJpZFJlc3BvbnNlEhAKCGFjY2VwdGVkGAEgASgIMocBCg5BdWN0aW9u",
-          "U2VydmljZRJECg9Jbml0aWF0ZUF1Y3Rpb24SFy5Jbml0aWF0ZUF1Y3Rpb25S",
-          "ZXF1ZXN0GhguSW5pdGlhdGVBdWN0aW9uUmVzcG9uc2USLwoIUGxhY2VCaWQS",
-          "EC5QbGFjZUJpZFJlcXVlc3QaES5QbGFjZUJpZFJlc3BvbnNlYgZwcm90bzM="));
+          "Y2UYAiABKAEiRAoXSW5pdGlhdGVBdWN0aW9uUmVzcG9uc2USEgoKYXVjdGlv",
+          "bl9pZBgBIAEoBRIVCg1vd25lcl9ub2RlX2lkGAIgASgJIkkKD1BsYWNlQmlk",
+          "UmVxdWVzdBISCgphdWN0aW9uX2lkGAEgASgFEhIKCmJpZF9hbW91bnQYAiAB",
+          "KAESDgoGYmlkZGVyGAMgASgJIiQKEFBsYWNlQmlkUmVzcG9uc2USEAoIYWNj",
+          "ZXB0ZWQYASABKAgiNAoLQXVjdGlvbkxpc3QSJQoLYXVjdGlvbkxpc3QYASAD",
+          "KAsyEC5BdWN0aW9uUmVzcG9uc2UiPAoPQXVjdGlvblJlc3BvbnNlEhIKCmF1",
+          "Y3Rpb25faWQYASABKAkSFQoNb3duZXJfbm9kZV9pZBgCIAEoCSIOCgxBdWN0",
+          "aW9uRW1wdHky5wEKDkF1Y3Rpb25TZXJ2aWNlEkQKD0luaXRpYXRlQXVjdGlv",
+          "bhIXLkluaXRpYXRlQXVjdGlvblJlcXVlc3QaGC5Jbml0aWF0ZUF1Y3Rpb25S",
+          "ZXNwb25zZRIvCghQbGFjZUJpZBIQLlBsYWNlQmlkUmVxdWVzdBoRLlBsYWNl",
+          "QmlkUmVzcG9uc2USLQoOR2V0QWxsQXVjdGlvbnMSDS5BdWN0aW9uRW1wdHka",
+          "DC5BdWN0aW9uTGlzdBIvCgxDbG9zZUF1Y3Rpb24SEC5BdWN0aW9uUmVzcG9u",
+          "c2UaDS5BdWN0aW9uRW1wdHliBnByb3RvMw=="));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
           new pbr::GeneratedClrTypeInfo(typeof(global::InitiateAuctionRequest), global::InitiateAuctionRequest.Parser, new[]{ "ItemName", "StartingPrice" }, null, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::InitiateAuctionResponse), global::InitiateAuctionResponse.Parser, new[]{ "AuctionId" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::InitiateAuctionResponse), global::InitiateAuctionResponse.Parser, new[]{ "AuctionId", "OwnerNodeId" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::PlaceBidRequest), global::PlaceBidRequest.Parser, new[]{ "AuctionId", "BidAmount", "Bidder" }, null, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::PlaceBidResponse), global::PlaceBidResponse.Parser, new[]{ "Accepted" }, null, null, null, null)
+          new pbr::GeneratedClrTypeInfo(typeof(global::PlaceBidResponse), global::PlaceBidResponse.Parser, new[]{ "Accepted" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::AuctionList), global::AuctionList.Parser, new[]{ "AuctionList_" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::AuctionResponse), global::AuctionResponse.Parser, new[]{ "AuctionId", "OwnerNodeId" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::AuctionEmpty), global::AuctionEmpty.Parser, null, null, null, null, null)
         }));
   }
   #endregion
@@ -307,6 +316,7 @@ public sealed partial class InitiateAuctionResponse : pb::IMessage<InitiateAucti
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public InitiateAuctionResponse(InitiateAuctionResponse other) : this() {
     auctionId_ = other.auctionId_;
+    ownerNodeId_ = other.ownerNodeId_;
     _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
   }
 
@@ -328,6 +338,18 @@ public sealed partial class InitiateAuctionResponse : pb::IMessage<InitiateAucti
     }
   }
 
+  /// <summary>Field number for the "owner_node_id" field.</summary>
+  public const int OwnerNodeIdFieldNumber = 2;
+  private string ownerNodeId_ = "";
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public string OwnerNodeId {
+    get { return ownerNodeId_; }
+    set {
+      ownerNodeId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+    }
+  }
+
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public override bool Equals(object other) {
@@ -344,6 +366,7 @@ public sealed partial class InitiateAuctionResponse : pb::IMessage<InitiateAucti
       return true;
     }
     if (AuctionId != other.AuctionId) return false;
+    if (OwnerNodeId != other.OwnerNodeId) return false;
     return Equals(_unknownFields, other._unknownFields);
   }
 
@@ -352,6 +375,7 @@ public sealed partial class InitiateAuctionResponse : pb::IMessage<InitiateAucti
   public override int GetHashCode() {
     int hash = 1;
     if (AuctionId != 0) hash ^= AuctionId.GetHashCode();
+    if (OwnerNodeId.Length != 0) hash ^= OwnerNodeId.GetHashCode();
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
     }
@@ -374,6 +398,10 @@ public sealed partial class InitiateAuctionResponse : pb::IMessage<InitiateAucti
       output.WriteRawTag(8);
       output.WriteInt32(AuctionId);
     }
+    if (OwnerNodeId.Length != 0) {
+      output.WriteRawTag(18);
+      output.WriteString(OwnerNodeId);
+    }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(output);
     }
@@ -388,6 +416,10 @@ public sealed partial class InitiateAuctionResponse : pb::IMessage<InitiateAucti
       output.WriteRawTag(8);
       output.WriteInt32(AuctionId);
     }
+    if (OwnerNodeId.Length != 0) {
+      output.WriteRawTag(18);
+      output.WriteString(OwnerNodeId);
+    }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(ref output);
     }
@@ -400,6 +432,9 @@ public sealed partial class InitiateAuctionResponse : pb::IMessage<InitiateAucti
     int size = 0;
     if (AuctionId != 0) {
       size += 1 + pb::CodedOutputStream.ComputeInt32Size(AuctionId);
+    }
+    if (OwnerNodeId.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(OwnerNodeId);
     }
     if (_unknownFields != null) {
       size += _unknownFields.CalculateSize();
@@ -415,6 +450,9 @@ public sealed partial class InitiateAuctionResponse : pb::IMessage<InitiateAucti
     }
     if (other.AuctionId != 0) {
       AuctionId = other.AuctionId;
+    }
+    if (other.OwnerNodeId.Length != 0) {
+      OwnerNodeId = other.OwnerNodeId;
     }
     _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
   }
@@ -435,6 +473,10 @@ public sealed partial class InitiateAuctionResponse : pb::IMessage<InitiateAucti
           AuctionId = input.ReadInt32();
           break;
         }
+        case 18: {
+          OwnerNodeId = input.ReadString();
+          break;
+        }
       }
     }
   #endif
@@ -452,6 +494,10 @@ public sealed partial class InitiateAuctionResponse : pb::IMessage<InitiateAucti
           break;
         case 8: {
           AuctionId = input.ReadInt32();
+          break;
+        }
+        case 18: {
+          OwnerNodeId = input.ReadString();
           break;
         }
       }
@@ -908,6 +954,565 @@ public sealed partial class PlaceBidResponse : pb::IMessage<PlaceBidResponse>
           Accepted = input.ReadBool();
           break;
         }
+      }
+    }
+  }
+  #endif
+
+}
+
+[global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
+public sealed partial class AuctionList : pb::IMessage<AuctionList>
+#if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    , pb::IBufferMessage
+#endif
+{
+  private static readonly pb::MessageParser<AuctionList> _parser = new pb::MessageParser<AuctionList>(() => new AuctionList());
+  private pb::UnknownFieldSet _unknownFields;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public static pb::MessageParser<AuctionList> Parser { get { return _parser; } }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public static pbr::MessageDescriptor Descriptor {
+    get { return global::AuctionServiceReflection.Descriptor.MessageTypes[4]; }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  pbr::MessageDescriptor pb::IMessage.Descriptor {
+    get { return Descriptor; }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public AuctionList() {
+    OnConstruction();
+  }
+
+  partial void OnConstruction();
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public AuctionList(AuctionList other) : this() {
+    auctionList_ = other.auctionList_.Clone();
+    _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public AuctionList Clone() {
+    return new AuctionList(this);
+  }
+
+  /// <summary>Field number for the "auctionList" field.</summary>
+  public const int AuctionList_FieldNumber = 1;
+  private static readonly pb::FieldCodec<global::AuctionResponse> _repeated_auctionList_codec
+      = pb::FieldCodec.ForMessage(10, global::AuctionResponse.Parser);
+  private readonly pbc::RepeatedField<global::AuctionResponse> auctionList_ = new pbc::RepeatedField<global::AuctionResponse>();
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public pbc::RepeatedField<global::AuctionResponse> AuctionList_ {
+    get { return auctionList_; }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public override bool Equals(object other) {
+    return Equals(other as AuctionList);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public bool Equals(AuctionList other) {
+    if (ReferenceEquals(other, null)) {
+      return false;
+    }
+    if (ReferenceEquals(other, this)) {
+      return true;
+    }
+    if(!auctionList_.Equals(other.auctionList_)) return false;
+    return Equals(_unknownFields, other._unknownFields);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public override int GetHashCode() {
+    int hash = 1;
+    hash ^= auctionList_.GetHashCode();
+    if (_unknownFields != null) {
+      hash ^= _unknownFields.GetHashCode();
+    }
+    return hash;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public override string ToString() {
+    return pb::JsonFormatter.ToDiagnosticString(this);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public void WriteTo(pb::CodedOutputStream output) {
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    output.WriteRawMessage(this);
+  #else
+    auctionList_.WriteTo(output, _repeated_auctionList_codec);
+    if (_unknownFields != null) {
+      _unknownFields.WriteTo(output);
+    }
+  #endif
+  }
+
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+    auctionList_.WriteTo(ref output, _repeated_auctionList_codec);
+    if (_unknownFields != null) {
+      _unknownFields.WriteTo(ref output);
+    }
+  }
+  #endif
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public int CalculateSize() {
+    int size = 0;
+    size += auctionList_.CalculateSize(_repeated_auctionList_codec);
+    if (_unknownFields != null) {
+      size += _unknownFields.CalculateSize();
+    }
+    return size;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public void MergeFrom(AuctionList other) {
+    if (other == null) {
+      return;
+    }
+    auctionList_.Add(other.auctionList_);
+    _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public void MergeFrom(pb::CodedInputStream input) {
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    input.ReadRawMessage(this);
+  #else
+    uint tag;
+    while ((tag = input.ReadTag()) != 0) {
+      switch(tag) {
+        default:
+          _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+          break;
+        case 10: {
+          auctionList_.AddEntriesFrom(input, _repeated_auctionList_codec);
+          break;
+        }
+      }
+    }
+  #endif
+  }
+
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+    uint tag;
+    while ((tag = input.ReadTag()) != 0) {
+      switch(tag) {
+        default:
+          _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+          break;
+        case 10: {
+          auctionList_.AddEntriesFrom(ref input, _repeated_auctionList_codec);
+          break;
+        }
+      }
+    }
+  }
+  #endif
+
+}
+
+[global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
+public sealed partial class AuctionResponse : pb::IMessage<AuctionResponse>
+#if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    , pb::IBufferMessage
+#endif
+{
+  private static readonly pb::MessageParser<AuctionResponse> _parser = new pb::MessageParser<AuctionResponse>(() => new AuctionResponse());
+  private pb::UnknownFieldSet _unknownFields;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public static pb::MessageParser<AuctionResponse> Parser { get { return _parser; } }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public static pbr::MessageDescriptor Descriptor {
+    get { return global::AuctionServiceReflection.Descriptor.MessageTypes[5]; }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  pbr::MessageDescriptor pb::IMessage.Descriptor {
+    get { return Descriptor; }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public AuctionResponse() {
+    OnConstruction();
+  }
+
+  partial void OnConstruction();
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public AuctionResponse(AuctionResponse other) : this() {
+    auctionId_ = other.auctionId_;
+    ownerNodeId_ = other.ownerNodeId_;
+    _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public AuctionResponse Clone() {
+    return new AuctionResponse(this);
+  }
+
+  /// <summary>Field number for the "auction_id" field.</summary>
+  public const int AuctionIdFieldNumber = 1;
+  private string auctionId_ = "";
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public string AuctionId {
+    get { return auctionId_; }
+    set {
+      auctionId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+    }
+  }
+
+  /// <summary>Field number for the "owner_node_id" field.</summary>
+  public const int OwnerNodeIdFieldNumber = 2;
+  private string ownerNodeId_ = "";
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public string OwnerNodeId {
+    get { return ownerNodeId_; }
+    set {
+      ownerNodeId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+    }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public override bool Equals(object other) {
+    return Equals(other as AuctionResponse);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public bool Equals(AuctionResponse other) {
+    if (ReferenceEquals(other, null)) {
+      return false;
+    }
+    if (ReferenceEquals(other, this)) {
+      return true;
+    }
+    if (AuctionId != other.AuctionId) return false;
+    if (OwnerNodeId != other.OwnerNodeId) return false;
+    return Equals(_unknownFields, other._unknownFields);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public override int GetHashCode() {
+    int hash = 1;
+    if (AuctionId.Length != 0) hash ^= AuctionId.GetHashCode();
+    if (OwnerNodeId.Length != 0) hash ^= OwnerNodeId.GetHashCode();
+    if (_unknownFields != null) {
+      hash ^= _unknownFields.GetHashCode();
+    }
+    return hash;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public override string ToString() {
+    return pb::JsonFormatter.ToDiagnosticString(this);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public void WriteTo(pb::CodedOutputStream output) {
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    output.WriteRawMessage(this);
+  #else
+    if (AuctionId.Length != 0) {
+      output.WriteRawTag(10);
+      output.WriteString(AuctionId);
+    }
+    if (OwnerNodeId.Length != 0) {
+      output.WriteRawTag(18);
+      output.WriteString(OwnerNodeId);
+    }
+    if (_unknownFields != null) {
+      _unknownFields.WriteTo(output);
+    }
+  #endif
+  }
+
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+    if (AuctionId.Length != 0) {
+      output.WriteRawTag(10);
+      output.WriteString(AuctionId);
+    }
+    if (OwnerNodeId.Length != 0) {
+      output.WriteRawTag(18);
+      output.WriteString(OwnerNodeId);
+    }
+    if (_unknownFields != null) {
+      _unknownFields.WriteTo(ref output);
+    }
+  }
+  #endif
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public int CalculateSize() {
+    int size = 0;
+    if (AuctionId.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(AuctionId);
+    }
+    if (OwnerNodeId.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(OwnerNodeId);
+    }
+    if (_unknownFields != null) {
+      size += _unknownFields.CalculateSize();
+    }
+    return size;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public void MergeFrom(AuctionResponse other) {
+    if (other == null) {
+      return;
+    }
+    if (other.AuctionId.Length != 0) {
+      AuctionId = other.AuctionId;
+    }
+    if (other.OwnerNodeId.Length != 0) {
+      OwnerNodeId = other.OwnerNodeId;
+    }
+    _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public void MergeFrom(pb::CodedInputStream input) {
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    input.ReadRawMessage(this);
+  #else
+    uint tag;
+    while ((tag = input.ReadTag()) != 0) {
+      switch(tag) {
+        default:
+          _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+          break;
+        case 10: {
+          AuctionId = input.ReadString();
+          break;
+        }
+        case 18: {
+          OwnerNodeId = input.ReadString();
+          break;
+        }
+      }
+    }
+  #endif
+  }
+
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+    uint tag;
+    while ((tag = input.ReadTag()) != 0) {
+      switch(tag) {
+        default:
+          _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+          break;
+        case 10: {
+          AuctionId = input.ReadString();
+          break;
+        }
+        case 18: {
+          OwnerNodeId = input.ReadString();
+          break;
+        }
+      }
+    }
+  }
+  #endif
+
+}
+
+[global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
+public sealed partial class AuctionEmpty : pb::IMessage<AuctionEmpty>
+#if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    , pb::IBufferMessage
+#endif
+{
+  private static readonly pb::MessageParser<AuctionEmpty> _parser = new pb::MessageParser<AuctionEmpty>(() => new AuctionEmpty());
+  private pb::UnknownFieldSet _unknownFields;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public static pb::MessageParser<AuctionEmpty> Parser { get { return _parser; } }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public static pbr::MessageDescriptor Descriptor {
+    get { return global::AuctionServiceReflection.Descriptor.MessageTypes[6]; }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  pbr::MessageDescriptor pb::IMessage.Descriptor {
+    get { return Descriptor; }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public AuctionEmpty() {
+    OnConstruction();
+  }
+
+  partial void OnConstruction();
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public AuctionEmpty(AuctionEmpty other) : this() {
+    _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public AuctionEmpty Clone() {
+    return new AuctionEmpty(this);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public override bool Equals(object other) {
+    return Equals(other as AuctionEmpty);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public bool Equals(AuctionEmpty other) {
+    if (ReferenceEquals(other, null)) {
+      return false;
+    }
+    if (ReferenceEquals(other, this)) {
+      return true;
+    }
+    return Equals(_unknownFields, other._unknownFields);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public override int GetHashCode() {
+    int hash = 1;
+    if (_unknownFields != null) {
+      hash ^= _unknownFields.GetHashCode();
+    }
+    return hash;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public override string ToString() {
+    return pb::JsonFormatter.ToDiagnosticString(this);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public void WriteTo(pb::CodedOutputStream output) {
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    output.WriteRawMessage(this);
+  #else
+    if (_unknownFields != null) {
+      _unknownFields.WriteTo(output);
+    }
+  #endif
+  }
+
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+    if (_unknownFields != null) {
+      _unknownFields.WriteTo(ref output);
+    }
+  }
+  #endif
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public int CalculateSize() {
+    int size = 0;
+    if (_unknownFields != null) {
+      size += _unknownFields.CalculateSize();
+    }
+    return size;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public void MergeFrom(AuctionEmpty other) {
+    if (other == null) {
+      return;
+    }
+    _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public void MergeFrom(pb::CodedInputStream input) {
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    input.ReadRawMessage(this);
+  #else
+    uint tag;
+    while ((tag = input.ReadTag()) != 0) {
+      switch(tag) {
+        default:
+          _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+          break;
+      }
+    }
+  #endif
+  }
+
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+    uint tag;
+    while ((tag = input.ReadTag()) != 0) {
+      switch(tag) {
+        default:
+          _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+          break;
       }
     }
   }

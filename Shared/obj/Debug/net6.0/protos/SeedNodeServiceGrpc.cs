@@ -48,6 +48,8 @@ public static partial class SeedNodeService
   static readonly grpc::Marshaller<global::RegisterRequest> __Marshaller_RegisterRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::RegisterRequest.Parser));
   [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
   static readonly grpc::Marshaller<global::EmptyMsg> __Marshaller_EmptyMsg = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::EmptyMsg.Parser));
+  [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+  static readonly grpc::Marshaller<global::RegisteredNodesResponse> __Marshaller_RegisteredNodesResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::RegisteredNodesResponse.Parser));
 
   [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
   static readonly grpc::Method<global::RegisterRequest, global::EmptyMsg> __Method_RegisterNode = new grpc::Method<global::RegisterRequest, global::EmptyMsg>(
@@ -56,6 +58,14 @@ public static partial class SeedNodeService
       "RegisterNode",
       __Marshaller_RegisterRequest,
       __Marshaller_EmptyMsg);
+
+  [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+  static readonly grpc::Method<global::EmptyMsg, global::RegisteredNodesResponse> __Method_GetRegisteredNodes = new grpc::Method<global::EmptyMsg, global::RegisteredNodesResponse>(
+      grpc::MethodType.Unary,
+      __ServiceName,
+      "GetRegisteredNodes",
+      __Marshaller_EmptyMsg,
+      __Marshaller_RegisteredNodesResponse);
 
   /// <summary>Service descriptor</summary>
   public static global::Google.Protobuf.Reflection.ServiceDescriptor Descriptor
@@ -69,6 +79,12 @@ public static partial class SeedNodeService
   {
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     public virtual global::System.Threading.Tasks.Task<global::EmptyMsg> RegisterNode(global::RegisterRequest request, grpc::ServerCallContext context)
+    {
+      throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual global::System.Threading.Tasks.Task<global::RegisteredNodesResponse> GetRegisteredNodes(global::EmptyMsg request, grpc::ServerCallContext context)
     {
       throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
     }
@@ -122,6 +138,26 @@ public static partial class SeedNodeService
     {
       return CallInvoker.AsyncUnaryCall(__Method_RegisterNode, null, options, request);
     }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual global::RegisteredNodesResponse GetRegisteredNodes(global::EmptyMsg request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+    {
+      return GetRegisteredNodes(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual global::RegisteredNodesResponse GetRegisteredNodes(global::EmptyMsg request, grpc::CallOptions options)
+    {
+      return CallInvoker.BlockingUnaryCall(__Method_GetRegisteredNodes, null, options, request);
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual grpc::AsyncUnaryCall<global::RegisteredNodesResponse> GetRegisteredNodesAsync(global::EmptyMsg request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+    {
+      return GetRegisteredNodesAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual grpc::AsyncUnaryCall<global::RegisteredNodesResponse> GetRegisteredNodesAsync(global::EmptyMsg request, grpc::CallOptions options)
+    {
+      return CallInvoker.AsyncUnaryCall(__Method_GetRegisteredNodes, null, options, request);
+    }
     /// <summary>Creates a new instance of client from given <c>ClientBaseConfiguration</c>.</summary>
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     protected override SeedNodeServiceClient NewInstance(ClientBaseConfiguration configuration)
@@ -136,7 +172,8 @@ public static partial class SeedNodeService
   public static grpc::ServerServiceDefinition BindService(SeedNodeServiceBase serviceImpl)
   {
     return grpc::ServerServiceDefinition.CreateBuilder()
-        .AddMethod(__Method_RegisterNode, serviceImpl.RegisterNode).Build();
+        .AddMethod(__Method_RegisterNode, serviceImpl.RegisterNode)
+        .AddMethod(__Method_GetRegisteredNodes, serviceImpl.GetRegisteredNodes).Build();
   }
 
   /// <summary>Register service method with a service binder with or without implementation. Useful when customizing the service binding logic.
@@ -147,6 +184,7 @@ public static partial class SeedNodeService
   public static void BindService(grpc::ServiceBinderBase serviceBinder, SeedNodeServiceBase serviceImpl)
   {
     serviceBinder.AddMethod(__Method_RegisterNode, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::RegisterRequest, global::EmptyMsg>(serviceImpl.RegisterNode));
+    serviceBinder.AddMethod(__Method_GetRegisteredNodes, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::EmptyMsg, global::RegisteredNodesResponse>(serviceImpl.GetRegisteredNodes));
   }
 
 }
