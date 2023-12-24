@@ -9,7 +9,9 @@ namespace ConsoleApp2
     {
         static async Task Main(string[] args)
         {
-            const int Port = 50051;
+            const int NodePort = 50051;
+
+            const string NodeHost = "localhost";
 
             string nodeId = Guid.NewGuid().ToString();
 
@@ -22,13 +24,12 @@ namespace ConsoleApp2
             var server = new Server
             {
                 Services = { AuctionService.BindService(new AutionServiceImpl(serviceCache)) },
-                Ports = { new ServerPort("localhost", Port, ServerCredentials.Insecure) }
+                Ports = { new ServerPort(NodeHost, NodePort, ServerCredentials.Insecure) }
             };
 
-            RegisterClientAndStart(Port, nodeId, server);
+            RegisterClientAndStart(NodePort, nodeId, server, NodeHost);
 
             //var channel = GrpcChannel.ForAddress($"http://localhost:{50052}");
-
 
             ShowMenu();
             GetInput();
@@ -49,18 +50,20 @@ namespace ConsoleApp2
             Console.WriteLine("------------------------------------------------------------");
         }
 
-        private static void RegisterClientAndStart(int Port, string nodeId, Server server)
+        private static void RegisterClientAndStart(int NodePort, string nodeId, Server server, string NodeHost)
         {
             server.Start();
             const int MainChannelPort = 50055;
 
-            Console.WriteLine($"Server listening on port {Port}");
+            Console.WriteLine($"Server listening on port {NodePort}");
 
             var mainChannel = GrpcChannel.ForAddress($"http://localhost:{MainChannelPort}");
 
             var seedClient = new SeedNodeService.SeedNodeServiceClient(mainChannel);
 
-            var registerRequest = new RegisterRequest { NodeId = nodeId };
+            var nodeAddress = $"http://{NodeHost}:{NodePort}";
+
+            var registerRequest = new RegisterRequest { NodeId = nodeId, NodeAddress = nodeAddress };
 
             var response = seedClient.RegisterNode(registerRequest);
 

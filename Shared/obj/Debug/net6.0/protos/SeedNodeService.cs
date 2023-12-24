@@ -22,16 +22,17 @@ public static partial class SeedNodeServiceReflection {
   static SeedNodeServiceReflection() {
     byte[] descriptorData = global::System.Convert.FromBase64String(
         string.Concat(
-          "Chxwcm90b3MvU2VlZE5vZGVTZXJ2aWNlLnByb3RvIiIKD1JlZ2lzdGVyUmVx",
-          "dWVzdBIPCgdub2RlX2lkGAEgASgJIjMKF1JlZ2lzdGVyZWROb2Rlc1Jlc3Bv",
-          "bnNlEhgKEHJlZ2lzdGVyZWRfbm9kZXMYASADKAkiCgoIRW1wdHlNc2cyeQoP",
-          "U2VlZE5vZGVTZXJ2aWNlEisKDFJlZ2lzdGVyTm9kZRIQLlJlZ2lzdGVyUmVx",
-          "dWVzdBoJLkVtcHR5TXNnEjkKEkdldFJlZ2lzdGVyZWROb2RlcxIJLkVtcHR5",
-          "TXNnGhguUmVnaXN0ZXJlZE5vZGVzUmVzcG9uc2ViBnByb3RvMw=="));
+          "Chxwcm90b3MvU2VlZE5vZGVTZXJ2aWNlLnByb3RvIjgKD1JlZ2lzdGVyUmVx",
+          "dWVzdBIPCgdub2RlX2lkGAEgASgJEhQKDG5vZGVfYWRkcmVzcxgCIAEoCSIz",
+          "ChdSZWdpc3RlcmVkTm9kZXNSZXNwb25zZRIYChByZWdpc3RlcmVkX25vZGVz",
+          "GAEgAygJIgoKCEVtcHR5TXNnMnkKD1NlZWROb2RlU2VydmljZRIrCgxSZWdp",
+          "c3Rlck5vZGUSEC5SZWdpc3RlclJlcXVlc3QaCS5FbXB0eU1zZxI5ChJHZXRS",
+          "ZWdpc3RlcmVkTm9kZXMSCS5FbXB0eU1zZxoYLlJlZ2lzdGVyZWROb2Rlc1Jl",
+          "c3BvbnNlYgZwcm90bzM="));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-          new pbr::GeneratedClrTypeInfo(typeof(global::RegisterRequest), global::RegisterRequest.Parser, new[]{ "NodeId" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::RegisterRequest), global::RegisterRequest.Parser, new[]{ "NodeId", "NodeAddress" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::RegisteredNodesResponse), global::RegisteredNodesResponse.Parser, new[]{ "RegisteredNodes" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::EmptyMsg), global::EmptyMsg.Parser, null, null, null, null, null)
         }));
@@ -76,6 +77,7 @@ public sealed partial class RegisterRequest : pb::IMessage<RegisterRequest>
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public RegisterRequest(RegisterRequest other) : this() {
     nodeId_ = other.nodeId_;
+    nodeAddress_ = other.nodeAddress_;
     _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
   }
 
@@ -97,6 +99,18 @@ public sealed partial class RegisterRequest : pb::IMessage<RegisterRequest>
     }
   }
 
+  /// <summary>Field number for the "node_address" field.</summary>
+  public const int NodeAddressFieldNumber = 2;
+  private string nodeAddress_ = "";
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public string NodeAddress {
+    get { return nodeAddress_; }
+    set {
+      nodeAddress_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+    }
+  }
+
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public override bool Equals(object other) {
@@ -113,6 +127,7 @@ public sealed partial class RegisterRequest : pb::IMessage<RegisterRequest>
       return true;
     }
     if (NodeId != other.NodeId) return false;
+    if (NodeAddress != other.NodeAddress) return false;
     return Equals(_unknownFields, other._unknownFields);
   }
 
@@ -121,6 +136,7 @@ public sealed partial class RegisterRequest : pb::IMessage<RegisterRequest>
   public override int GetHashCode() {
     int hash = 1;
     if (NodeId.Length != 0) hash ^= NodeId.GetHashCode();
+    if (NodeAddress.Length != 0) hash ^= NodeAddress.GetHashCode();
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
     }
@@ -143,6 +159,10 @@ public sealed partial class RegisterRequest : pb::IMessage<RegisterRequest>
       output.WriteRawTag(10);
       output.WriteString(NodeId);
     }
+    if (NodeAddress.Length != 0) {
+      output.WriteRawTag(18);
+      output.WriteString(NodeAddress);
+    }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(output);
     }
@@ -157,6 +177,10 @@ public sealed partial class RegisterRequest : pb::IMessage<RegisterRequest>
       output.WriteRawTag(10);
       output.WriteString(NodeId);
     }
+    if (NodeAddress.Length != 0) {
+      output.WriteRawTag(18);
+      output.WriteString(NodeAddress);
+    }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(ref output);
     }
@@ -169,6 +193,9 @@ public sealed partial class RegisterRequest : pb::IMessage<RegisterRequest>
     int size = 0;
     if (NodeId.Length != 0) {
       size += 1 + pb::CodedOutputStream.ComputeStringSize(NodeId);
+    }
+    if (NodeAddress.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(NodeAddress);
     }
     if (_unknownFields != null) {
       size += _unknownFields.CalculateSize();
@@ -184,6 +211,9 @@ public sealed partial class RegisterRequest : pb::IMessage<RegisterRequest>
     }
     if (other.NodeId.Length != 0) {
       NodeId = other.NodeId;
+    }
+    if (other.NodeAddress.Length != 0) {
+      NodeAddress = other.NodeAddress;
     }
     _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
   }
@@ -204,6 +234,10 @@ public sealed partial class RegisterRequest : pb::IMessage<RegisterRequest>
           NodeId = input.ReadString();
           break;
         }
+        case 18: {
+          NodeAddress = input.ReadString();
+          break;
+        }
       }
     }
   #endif
@@ -221,6 +255,10 @@ public sealed partial class RegisterRequest : pb::IMessage<RegisterRequest>
           break;
         case 10: {
           NodeId = input.ReadString();
+          break;
+        }
+        case 18: {
+          NodeAddress = input.ReadString();
           break;
         }
       }

@@ -14,9 +14,11 @@ namespace P2P.SeedNode
         {
             var nodeId = request.NodeId;
 
+            var address = request.NodeAddress;
+
             var message= string.Empty;
 
-            if (RegistDict.RegisteredNodes.TryAdd(nodeId, true))
+            if (RegistDict.RegisteredNodes.TryAdd(nodeId, address))
             {
                 message = $"Node '{nodeId}' registered with the seed node.";
                 Console.WriteLine(message);

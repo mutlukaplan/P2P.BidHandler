@@ -29,6 +29,6 @@ namespace P2P.SeedNode
 
     internal static class RegistDict
     {
-        public static readonly ConcurrentDictionary<string, bool> RegisteredNodes = new ConcurrentDictionary<string, bool>();
+        public static readonly ConcurrentDictionary<string, string> RegisteredNodes = new ConcurrentDictionary<string, string>();
     }
 }
