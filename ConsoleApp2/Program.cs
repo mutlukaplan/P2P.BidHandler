@@ -27,8 +27,7 @@ namespace ConsoleApp2
 
             RegisterClientAndStart(Port, nodeId, server);
 
-            var channel = GrpcChannel.ForAddress($"http://localhost:{50052}");
-
+            //var channel = GrpcChannel.ForAddress($"http://localhost:{50052}");
 
 
             ShowMenu();
@@ -78,21 +77,36 @@ namespace ConsoleApp2
                 switch (selection)
                 {
                     case "1":
-                        // DoCreateAccount();
+                         GetAllAuctions();
                         break;
                     case "2":
-                        // DoRestore();
+                         MakeBid();
                         break;
                     case "3":
                         // DoSendCoin();
                         break;
 
                     case "4":
-                        //DoExit();
+                        DoExit();
                         break;
                 }
             }
 
+        }
+
+        private static void DoExit()
+        {
+            throw new NotImplementedException();
+        }
+
+        private static void MakeBid()
+        {
+            throw new NotImplementedException();
+        }
+
+        private static void GetAllAuctions()
+        {
+            throw new NotImplementedException();
         }
     }
 

@@ -13,7 +13,7 @@ namespace Shared.Services
 
         public AutionServiceImpl(IAuctionCache auctionCache)
         {
-            _auctionCache=auctionCache;
+            _auctionCache = auctionCache;
         }
         public override Task<InitiateAuctionResponse> InitiateAuction(InitiateAuctionRequest request, ServerCallContext context)
         {
@@ -36,15 +36,15 @@ namespace Shared.Services
         public override Task<AuctionList> GetAllAuctions(AuctionEmpty request, ServerCallContext context)
         {
             var idealist = new AuctionList();
-            idealist.AuctionList_.Add(new AuctionResponse());
-
+            var allNodeAuctions = _auctionCache.GetMyAuctions();
+            idealist.AuctionList_.AddRange(allNodeAuctions);
             return Task.FromResult(idealist);
         }
 
         public override Task<AuctionEmpty> CloseAuction(AuctionResponse request, ServerCallContext context)
         {
             _auctionCache.DeleteAuction(request);
-
+            // update all nodes
             return Task.FromResult(new AuctionEmpty());
         }
     }

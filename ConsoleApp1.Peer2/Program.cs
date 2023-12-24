@@ -29,9 +29,7 @@ namespace ConsoleApp1.Peer2
 
             RegisterClientAndStart(Port, nodeId, server);
 
-            var channel = GrpcChannel.ForAddress($"http://localhost:{50052}");
-
-
+            //var channel = GrpcChannel.ForAddress($"http://localhost:{50052}");
 
             ShowMenu();
             GetInput();
