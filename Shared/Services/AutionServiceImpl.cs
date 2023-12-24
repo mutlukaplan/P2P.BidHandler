@@ -32,7 +32,13 @@ namespace Shared.Services
             // Return whether the bid was accepted in the response
             return Task.FromResult(new PlaceBidResponse { Accepted = bidAccepted });
         }
-
+        /// <summary>
+        /// That function should return all the auctions. This is something slightly wrong as it returns just local auctions. 
+        /// Normally it should get all the registered nodes as parameter and getl all the auctions of those nodes
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="context"></param>
+        /// <returns></returns>
         public override Task<AuctionList> GetAllAuctions(AuctionEmpty request, ServerCallContext context)
         {
             var idealist = new AuctionList();
