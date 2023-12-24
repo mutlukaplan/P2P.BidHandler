@@ -131,6 +131,22 @@
         "runtime": {
           "lib/netcoreapp2.1/_._": {}
         }
+      },
+      "Shared/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "Google.Protobuf": "3.25.1",
+          "Grpc.Core": "2.46.6",
+          "Grpc.Core.Api": "2.59.0",
+          "Grpc.Net.Client": "2.59.0"
+        },
+        "compile": {
+          "bin/placeholder/Shared.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Shared.dll": {}
+        }
       }
     }
   },
@@ -387,6 +403,11 @@
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
+    },
+    "Shared/1.0.0": {
+      "type": "project",
+      "path": "../Shared/Shared.csproj",
+      "msbuildProject": "../Shared/Shared.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -395,7 +416,8 @@
       "Grpc.Core >= 2.46.6",
       "Grpc.Core.Api >= 2.59.0",
       "Grpc.Net.Client >= 2.59.0",
-      "Grpc.Tools >= 2.60.0"
+      "Grpc.Tools >= 2.60.0",
+      "Shared >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -429,7 +451,11 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\mutlu\\source\\repos\\ConsoleApp2\\Shared\\Shared.csproj": {
+              "projectPath": "C:\\Users\\mutlu\\source\\repos\\ConsoleApp2\\Shared\\Shared.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

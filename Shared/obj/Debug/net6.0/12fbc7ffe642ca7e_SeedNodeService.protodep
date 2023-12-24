@@ -1,0 +1,2 @@
+obj\Debug\net6.0\protos/SeedNodeService.cs \
+obj\Debug\net6.0\protos/SeedNodeServiceGrpc.cs: protos/SeedNodeService.proto

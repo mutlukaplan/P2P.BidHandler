@@ -6,7 +6,7 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v6.0": {
-      "P2P.SeedNode/1.0.0": {
+      "P2P.Node2/1.0.0": {
         "dependencies": {
           "Google.Protobuf": "3.25.1",
           "Grpc.Core": "2.46.6",
@@ -16,7 +16,7 @@
           "Shared": "1.0.0"
         },
         "runtime": {
-          "P2P.SeedNode.dll": {}
+          "P2P.Node2.dll": {}
         }
       },
       "Google.Protobuf/3.25.1": {
@@ -121,7 +121,7 @@
     }
   },
   "libraries": {
-    "P2P.SeedNode/1.0.0": {
+    "P2P.Node2/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

@@ -11,6 +11,7 @@
     <None Remove="protos\ChatService.proto" />
     <None Remove="protos\greet.proto" />
     <None Remove="protos\PubSubService.proto" />
+    <None Remove="protos\SeedNodeService.proto" />
   </ItemGroup>
 
   <ItemGroup>
@@ -25,6 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Protobuf Include="protos\SeedNodeService.proto" />
     <Protobuf Include="protos\AuctionService.proto" />
     <Protobuf Include="protos\ChatService.proto" />
     <Protobuf Include="protos\greet.proto" />

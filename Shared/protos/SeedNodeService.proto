@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+service SeedNodeService {
+    rpc RegisterNode(RegisterRequest) returns (EmptyMsg);
+}
+
+message RegisterRequest {
+    string node_id = 1;
+}
+
+message EmptyMsg {}

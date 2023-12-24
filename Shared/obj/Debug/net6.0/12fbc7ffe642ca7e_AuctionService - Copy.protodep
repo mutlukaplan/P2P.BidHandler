@@ -1,0 +1,2 @@
+obj\Debug\net6.0\protos/AuctionService - CopyGrpc.cs \
+obj\Debug\net6.0\protos/AuctionServiceCopy.cs: protos/AuctionService - Copy.proto
