@@ -1,0 +1,2 @@
+obj\Debug\net6.0\Protos/AuctionService.cs \
+obj\Debug\net6.0\Protos/AuctionServiceGrpc.cs: Protos/AuctionService.proto

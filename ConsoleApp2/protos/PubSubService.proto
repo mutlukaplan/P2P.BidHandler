@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+service PubSubService {
+    rpc Subscribe (SubscriptionRequest) returns (stream Notification);
+    rpc Publish (PublishRequest) returns (Empty);
+}
+
+message SubscriptionRequest {
+    string subscriber_id = 1;
+}
+
+message PublishRequest {
+    string message = 1;
+}
+
+message Notification {
+    string publisher_id = 1;
+    string message = 2;
+}
+
+message Empty {
+    string message = 1;
+}

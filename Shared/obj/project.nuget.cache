@@ -1,0 +1,17 @@
+{
+  "version": 2,
+  "dgSpecHash": "ItBg7PfQ+TGa3RIKTh3t/o5UKTGefAXd71w9co70Eo1a3AWN/DCUOvpN6b5nvIi4KWQJJblhcRextHgzFkzxXA==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\mutlu\\source\\repos\\ConsoleApp2\\Shared\\Shared.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\mutlu\\.nuget\\packages\\google.protobuf\\3.25.1\\google.protobuf.3.25.1.nupkg.sha512",
+    "C:\\Users\\mutlu\\.nuget\\packages\\grpc.core\\2.46.6\\grpc.core.2.46.6.nupkg.sha512",
+    "C:\\Users\\mutlu\\.nuget\\packages\\grpc.core.api\\2.59.0\\grpc.core.api.2.59.0.nupkg.sha512",
+    "C:\\Users\\mutlu\\.nuget\\packages\\grpc.net.client\\2.59.0\\grpc.net.client.2.59.0.nupkg.sha512",
+    "C:\\Users\\mutlu\\.nuget\\packages\\grpc.net.common\\2.59.0\\grpc.net.common.2.59.0.nupkg.sha512",
+    "C:\\Users\\mutlu\\.nuget\\packages\\grpc.tools\\2.60.0\\grpc.tools.2.60.0.nupkg.sha512",
+    "C:\\Users\\mutlu\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\6.0.0\\microsoft.extensions.logging.abstractions.6.0.0.nupkg.sha512",
+    "C:\\Users\\mutlu\\.nuget\\packages\\system.memory\\4.5.3\\system.memory.4.5.3.nupkg.sha512"
+  ],
+  "logs": []
+}
