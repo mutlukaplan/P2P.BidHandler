@@ -1,2 +1,0 @@
-obj\Debug\net6.0\protos/ChatService.cs \
-obj\Debug\net6.0\protos/ChatServiceGrpc.cs: protos/ChatService.proto

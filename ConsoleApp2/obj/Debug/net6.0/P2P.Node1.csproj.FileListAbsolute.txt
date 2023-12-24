@@ -27,3 +27,5 @@ C:\Users\mutlu\source\repos\ConsoleApp2\ConsoleApp2\obj\Debug\net6.0\refint\P2P.
 C:\Users\mutlu\source\repos\ConsoleApp2\ConsoleApp2\obj\Debug\net6.0\P2P.Node1.pdb
 C:\Users\mutlu\source\repos\ConsoleApp2\ConsoleApp2\obj\Debug\net6.0\P2P.Node1.genruntimeconfig.cache
 C:\Users\mutlu\source\repos\ConsoleApp2\ConsoleApp2\obj\Debug\net6.0\ref\P2P.Node1.dll
+C:\Users\mutlu\source\repos\ConsoleApp2\ConsoleApp2\bin\Debug\net6.0\Microsoft.Extensions.DependencyInjection.dll
+C:\Users\mutlu\source\repos\ConsoleApp2\ConsoleApp2\bin\Debug\net6.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
