@@ -29,14 +29,16 @@ public static partial class AuctionServiceReflection {
           "UmVxdWVzdBISCgphdWN0aW9uX2lkGAEgASgFEhIKCmJpZF9hbW91bnQYAiAB",
           "KAESDgoGYmlkZGVyGAMgASgJIiQKEFBsYWNlQmlkUmVzcG9uc2USEAoIYWNj",
           "ZXB0ZWQYASABKAgiNAoLQXVjdGlvbkxpc3QSJQoLYXVjdGlvbkxpc3QYASAD",
-          "KAsyEC5BdWN0aW9uUmVzcG9uc2UiPAoPQXVjdGlvblJlc3BvbnNlEhIKCmF1",
-          "Y3Rpb25faWQYASABKAkSFQoNb3duZXJfbm9kZV9pZBgCIAEoCSIOCgxBdWN0",
-          "aW9uRW1wdHky5wEKDkF1Y3Rpb25TZXJ2aWNlEkQKD0luaXRpYXRlQXVjdGlv",
-          "bhIXLkluaXRpYXRlQXVjdGlvblJlcXVlc3QaGC5Jbml0aWF0ZUF1Y3Rpb25S",
-          "ZXNwb25zZRIvCghQbGFjZUJpZBIQLlBsYWNlQmlkUmVxdWVzdBoRLlBsYWNl",
-          "QmlkUmVzcG9uc2USLQoOR2V0QWxsQXVjdGlvbnMSDS5BdWN0aW9uRW1wdHka",
-          "DC5BdWN0aW9uTGlzdBIvCgxDbG9zZUF1Y3Rpb24SEC5BdWN0aW9uUmVzcG9u",
-          "c2UaDS5BdWN0aW9uRW1wdHliBnByb3RvMw=="));
+          "KAsyEC5BdWN0aW9uUmVzcG9uc2UifgoPQXVjdGlvblJlc3BvbnNlEhIKCmF1",
+          "Y3Rpb25faWQYASABKAkSFQoNb3duZXJfbm9kZV9pZBgCIAEoCRIPCgdhZGRy",
+          "ZXNzGAMgASgJEi8KDmF1Y3Rpb25SZXF1ZXN0GAQgASgLMhcuSW5pdGlhdGVB",
+          "dWN0aW9uUmVxdWVzdCIOCgxBdWN0aW9uRW1wdHky5wEKDkF1Y3Rpb25TZXJ2",
+          "aWNlEkQKD0luaXRpYXRlQXVjdGlvbhIXLkluaXRpYXRlQXVjdGlvblJlcXVl",
+          "c3QaGC5Jbml0aWF0ZUF1Y3Rpb25SZXNwb25zZRIvCghQbGFjZUJpZBIQLlBs",
+          "YWNlQmlkUmVxdWVzdBoRLlBsYWNlQmlkUmVzcG9uc2USLQoOR2V0QWxsQXVj",
+          "dGlvbnMSDS5BdWN0aW9uRW1wdHkaDC5BdWN0aW9uTGlzdBIvCgxDbG9zZUF1",
+          "Y3Rpb24SEC5BdWN0aW9uUmVzcG9uc2UaDS5BdWN0aW9uRW1wdHliBnByb3Rv",
+          "Mw=="));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
@@ -45,7 +47,7 @@ public static partial class AuctionServiceReflection {
           new pbr::GeneratedClrTypeInfo(typeof(global::PlaceBidRequest), global::PlaceBidRequest.Parser, new[]{ "AuctionId", "BidAmount", "Bidder" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::PlaceBidResponse), global::PlaceBidResponse.Parser, new[]{ "Accepted" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::AuctionList), global::AuctionList.Parser, new[]{ "AuctionList_" }, null, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::AuctionResponse), global::AuctionResponse.Parser, new[]{ "AuctionId", "OwnerNodeId" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::AuctionResponse), global::AuctionResponse.Parser, new[]{ "AuctionId", "OwnerNodeId", "Address", "AuctionRequest" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::AuctionEmpty), global::AuctionEmpty.Parser, null, null, null, null, null)
         }));
   }
@@ -1177,6 +1179,8 @@ public sealed partial class AuctionResponse : pb::IMessage<AuctionResponse>
   public AuctionResponse(AuctionResponse other) : this() {
     auctionId_ = other.auctionId_;
     ownerNodeId_ = other.ownerNodeId_;
+    address_ = other.address_;
+    auctionRequest_ = other.auctionRequest_ != null ? other.auctionRequest_.Clone() : null;
     _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
   }
 
@@ -1210,6 +1214,30 @@ public sealed partial class AuctionResponse : pb::IMessage<AuctionResponse>
     }
   }
 
+  /// <summary>Field number for the "address" field.</summary>
+  public const int AddressFieldNumber = 3;
+  private string address_ = "";
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public string Address {
+    get { return address_; }
+    set {
+      address_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+    }
+  }
+
+  /// <summary>Field number for the "auctionRequest" field.</summary>
+  public const int AuctionRequestFieldNumber = 4;
+  private global::InitiateAuctionRequest auctionRequest_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public global::InitiateAuctionRequest AuctionRequest {
+    get { return auctionRequest_; }
+    set {
+      auctionRequest_ = value;
+    }
+  }
+
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public override bool Equals(object other) {
@@ -1227,6 +1255,8 @@ public sealed partial class AuctionResponse : pb::IMessage<AuctionResponse>
     }
     if (AuctionId != other.AuctionId) return false;
     if (OwnerNodeId != other.OwnerNodeId) return false;
+    if (Address != other.Address) return false;
+    if (!object.Equals(AuctionRequest, other.AuctionRequest)) return false;
     return Equals(_unknownFields, other._unknownFields);
   }
 
@@ -1236,6 +1266,8 @@ public sealed partial class AuctionResponse : pb::IMessage<AuctionResponse>
     int hash = 1;
     if (AuctionId.Length != 0) hash ^= AuctionId.GetHashCode();
     if (OwnerNodeId.Length != 0) hash ^= OwnerNodeId.GetHashCode();
+    if (Address.Length != 0) hash ^= Address.GetHashCode();
+    if (auctionRequest_ != null) hash ^= AuctionRequest.GetHashCode();
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
     }
@@ -1262,6 +1294,14 @@ public sealed partial class AuctionResponse : pb::IMessage<AuctionResponse>
       output.WriteRawTag(18);
       output.WriteString(OwnerNodeId);
     }
+    if (Address.Length != 0) {
+      output.WriteRawTag(26);
+      output.WriteString(Address);
+    }
+    if (auctionRequest_ != null) {
+      output.WriteRawTag(34);
+      output.WriteMessage(AuctionRequest);
+    }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(output);
     }
@@ -1280,6 +1320,14 @@ public sealed partial class AuctionResponse : pb::IMessage<AuctionResponse>
       output.WriteRawTag(18);
       output.WriteString(OwnerNodeId);
     }
+    if (Address.Length != 0) {
+      output.WriteRawTag(26);
+      output.WriteString(Address);
+    }
+    if (auctionRequest_ != null) {
+      output.WriteRawTag(34);
+      output.WriteMessage(AuctionRequest);
+    }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(ref output);
     }
@@ -1295,6 +1343,12 @@ public sealed partial class AuctionResponse : pb::IMessage<AuctionResponse>
     }
     if (OwnerNodeId.Length != 0) {
       size += 1 + pb::CodedOutputStream.ComputeStringSize(OwnerNodeId);
+    }
+    if (Address.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(Address);
+    }
+    if (auctionRequest_ != null) {
+      size += 1 + pb::CodedOutputStream.ComputeMessageSize(AuctionRequest);
     }
     if (_unknownFields != null) {
       size += _unknownFields.CalculateSize();
@@ -1313,6 +1367,15 @@ public sealed partial class AuctionResponse : pb::IMessage<AuctionResponse>
     }
     if (other.OwnerNodeId.Length != 0) {
       OwnerNodeId = other.OwnerNodeId;
+    }
+    if (other.Address.Length != 0) {
+      Address = other.Address;
+    }
+    if (other.auctionRequest_ != null) {
+      if (auctionRequest_ == null) {
+        AuctionRequest = new global::InitiateAuctionRequest();
+      }
+      AuctionRequest.MergeFrom(other.AuctionRequest);
     }
     _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
   }
@@ -1337,6 +1400,17 @@ public sealed partial class AuctionResponse : pb::IMessage<AuctionResponse>
           OwnerNodeId = input.ReadString();
           break;
         }
+        case 26: {
+          Address = input.ReadString();
+          break;
+        }
+        case 34: {
+          if (auctionRequest_ == null) {
+            AuctionRequest = new global::InitiateAuctionRequest();
+          }
+          input.ReadMessage(AuctionRequest);
+          break;
+        }
       }
     }
   #endif
@@ -1358,6 +1432,17 @@ public sealed partial class AuctionResponse : pb::IMessage<AuctionResponse>
         }
         case 18: {
           OwnerNodeId = input.ReadString();
+          break;
+        }
+        case 26: {
+          Address = input.ReadString();
+          break;
+        }
+        case 34: {
+          if (auctionRequest_ == null) {
+            AuctionRequest = new global::InitiateAuctionRequest();
+          }
+          input.ReadMessage(AuctionRequest);
           break;
         }
       }

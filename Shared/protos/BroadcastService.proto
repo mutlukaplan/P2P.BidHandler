@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+service BroadcastService {
+    rpc Broadcast(BroadcastMessage) returns (BroadcastEmpty);
+    rpc Subscribe(BroadcastEmpty) returns (stream BroadcastMessage);
+    rpc Unsubscribe(BroadcastEmpty) returns (BroadcastEmpty);
+    rpc ReceiveBroadcast(BroadcastEmpty) returns (stream BroadcastMessage);
+}
+
+message BroadcastMessage {
+    string text = 1;
+    string auction_id=2;
+    string owner_id=3;
+    string address=4;
+}
+
+message BroadcastEmpty {}

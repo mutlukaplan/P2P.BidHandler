@@ -7,9 +7,9 @@
 
 using grpc = global::Grpc.Core;
 
-public static partial class SeedNodeService
+public static partial class AuctionService
 {
-  static readonly string __ServiceName = "SeedNodeService";
+  static readonly string __ServiceName = "AuctionService";
 
   [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
   static void __Helper_SerializeMessage(global::Google.Protobuf.IMessage message, grpc::SerializationContext context)
@@ -45,17 +45,51 @@ public static partial class SeedNodeService
   }
 
   [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-  static readonly grpc::Marshaller<global::RegisterRequest> __Marshaller_RegisterRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::RegisterRequest.Parser));
+  static readonly grpc::Marshaller<global::InitiateAuctionRequest> __Marshaller_InitiateAuctionRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::InitiateAuctionRequest.Parser));
   [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-  static readonly grpc::Marshaller<global::EmptyMsg> __Marshaller_EmptyMsg = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::EmptyMsg.Parser));
+  static readonly grpc::Marshaller<global::InitiateAuctionResponse> __Marshaller_InitiateAuctionResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::InitiateAuctionResponse.Parser));
+  [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+  static readonly grpc::Marshaller<global::PlaceBidRequest> __Marshaller_PlaceBidRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::PlaceBidRequest.Parser));
+  [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+  static readonly grpc::Marshaller<global::PlaceBidResponse> __Marshaller_PlaceBidResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::PlaceBidResponse.Parser));
+  [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+  static readonly grpc::Marshaller<global::AuctionEmpty> __Marshaller_AuctionEmpty = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::AuctionEmpty.Parser));
+  [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+  static readonly grpc::Marshaller<global::AuctionList> __Marshaller_AuctionList = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::AuctionList.Parser));
+  [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+  static readonly grpc::Marshaller<global::AuctionResponse> __Marshaller_AuctionResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::AuctionResponse.Parser));
 
   [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-  static readonly grpc::Method<global::RegisterRequest, global::EmptyMsg> __Method_RegisterNode = new grpc::Method<global::RegisterRequest, global::EmptyMsg>(
+  static readonly grpc::Method<global::InitiateAuctionRequest, global::InitiateAuctionResponse> __Method_InitiateAuction = new grpc::Method<global::InitiateAuctionRequest, global::InitiateAuctionResponse>(
       grpc::MethodType.Unary,
       __ServiceName,
-      "RegisterNode",
-      __Marshaller_RegisterRequest,
-      __Marshaller_EmptyMsg);
+      "InitiateAuction",
+      __Marshaller_InitiateAuctionRequest,
+      __Marshaller_InitiateAuctionResponse);
+
+  [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+  static readonly grpc::Method<global::PlaceBidRequest, global::PlaceBidResponse> __Method_PlaceBid = new grpc::Method<global::PlaceBidRequest, global::PlaceBidResponse>(
+      grpc::MethodType.Unary,
+      __ServiceName,
+      "PlaceBid",
+      __Marshaller_PlaceBidRequest,
+      __Marshaller_PlaceBidResponse);
+
+  [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+  static readonly grpc::Method<global::AuctionEmpty, global::AuctionList> __Method_GetAllAuctions = new grpc::Method<global::AuctionEmpty, global::AuctionList>(
+      grpc::MethodType.Unary,
+      __ServiceName,
+      "GetAllAuctions",
+      __Marshaller_AuctionEmpty,
+      __Marshaller_AuctionList);
+
+  [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+  static readonly grpc::Method<global::AuctionResponse, global::AuctionEmpty> __Method_CloseAuction = new grpc::Method<global::AuctionResponse, global::AuctionEmpty>(
+      grpc::MethodType.Unary,
+      __ServiceName,
+      "CloseAuction",
+      __Marshaller_AuctionResponse,
+      __Marshaller_AuctionEmpty);
 
   /// <summary>Service descriptor</summary>
   public static global::Google.Protobuf.Reflection.ServiceDescriptor Descriptor
@@ -63,80 +97,161 @@ public static partial class SeedNodeService
     get { return global::AuctionServiceCopyReflection.Descriptor.Services[0]; }
   }
 
-  /// <summary>Base class for server-side implementations of SeedNodeService</summary>
-  [grpc::BindServiceMethod(typeof(SeedNodeService), "BindService")]
-  public abstract partial class SeedNodeServiceBase
+  /// <summary>Base class for server-side implementations of AuctionService</summary>
+  [grpc::BindServiceMethod(typeof(AuctionService), "BindService")]
+  public abstract partial class AuctionServiceBase
   {
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    public virtual global::System.Threading.Tasks.Task<global::EmptyMsg> RegisterNode(global::RegisterRequest request, grpc::ServerCallContext context)
+    public virtual global::System.Threading.Tasks.Task<global::InitiateAuctionResponse> InitiateAuction(global::InitiateAuctionRequest request, grpc::ServerCallContext context)
+    {
+      throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual global::System.Threading.Tasks.Task<global::PlaceBidResponse> PlaceBid(global::PlaceBidRequest request, grpc::ServerCallContext context)
+    {
+      throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual global::System.Threading.Tasks.Task<global::AuctionList> GetAllAuctions(global::AuctionEmpty request, grpc::ServerCallContext context)
+    {
+      throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual global::System.Threading.Tasks.Task<global::AuctionEmpty> CloseAuction(global::AuctionResponse request, grpc::ServerCallContext context)
     {
       throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
     }
 
   }
 
-  /// <summary>Client for SeedNodeService</summary>
-  public partial class SeedNodeServiceClient : grpc::ClientBase<SeedNodeServiceClient>
+  /// <summary>Client for AuctionService</summary>
+  public partial class AuctionServiceClient : grpc::ClientBase<AuctionServiceClient>
   {
-    /// <summary>Creates a new client for SeedNodeService</summary>
+    /// <summary>Creates a new client for AuctionService</summary>
     /// <param name="channel">The channel to use to make remote calls.</param>
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    public SeedNodeServiceClient(grpc::ChannelBase channel) : base(channel)
+    public AuctionServiceClient(grpc::ChannelBase channel) : base(channel)
     {
     }
-    /// <summary>Creates a new client for SeedNodeService that uses a custom <c>CallInvoker</c>.</summary>
+    /// <summary>Creates a new client for AuctionService that uses a custom <c>CallInvoker</c>.</summary>
     /// <param name="callInvoker">The callInvoker to use to make remote calls.</param>
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    public SeedNodeServiceClient(grpc::CallInvoker callInvoker) : base(callInvoker)
+    public AuctionServiceClient(grpc::CallInvoker callInvoker) : base(callInvoker)
     {
     }
     /// <summary>Protected parameterless constructor to allow creation of test doubles.</summary>
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    protected SeedNodeServiceClient() : base()
+    protected AuctionServiceClient() : base()
     {
     }
     /// <summary>Protected constructor to allow creation of configured clients.</summary>
     /// <param name="configuration">The client configuration.</param>
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    protected SeedNodeServiceClient(ClientBaseConfiguration configuration) : base(configuration)
+    protected AuctionServiceClient(ClientBaseConfiguration configuration) : base(configuration)
     {
     }
 
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    public virtual global::EmptyMsg RegisterNode(global::RegisterRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+    public virtual global::InitiateAuctionResponse InitiateAuction(global::InitiateAuctionRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
     {
-      return RegisterNode(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      return InitiateAuction(request, new grpc::CallOptions(headers, deadline, cancellationToken));
     }
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    public virtual global::EmptyMsg RegisterNode(global::RegisterRequest request, grpc::CallOptions options)
+    public virtual global::InitiateAuctionResponse InitiateAuction(global::InitiateAuctionRequest request, grpc::CallOptions options)
     {
-      return CallInvoker.BlockingUnaryCall(__Method_RegisterNode, null, options, request);
+      return CallInvoker.BlockingUnaryCall(__Method_InitiateAuction, null, options, request);
     }
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    public virtual grpc::AsyncUnaryCall<global::EmptyMsg> RegisterNodeAsync(global::RegisterRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+    public virtual grpc::AsyncUnaryCall<global::InitiateAuctionResponse> InitiateAuctionAsync(global::InitiateAuctionRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
     {
-      return RegisterNodeAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      return InitiateAuctionAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
     }
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    public virtual grpc::AsyncUnaryCall<global::EmptyMsg> RegisterNodeAsync(global::RegisterRequest request, grpc::CallOptions options)
+    public virtual grpc::AsyncUnaryCall<global::InitiateAuctionResponse> InitiateAuctionAsync(global::InitiateAuctionRequest request, grpc::CallOptions options)
     {
-      return CallInvoker.AsyncUnaryCall(__Method_RegisterNode, null, options, request);
+      return CallInvoker.AsyncUnaryCall(__Method_InitiateAuction, null, options, request);
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual global::PlaceBidResponse PlaceBid(global::PlaceBidRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+    {
+      return PlaceBid(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual global::PlaceBidResponse PlaceBid(global::PlaceBidRequest request, grpc::CallOptions options)
+    {
+      return CallInvoker.BlockingUnaryCall(__Method_PlaceBid, null, options, request);
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual grpc::AsyncUnaryCall<global::PlaceBidResponse> PlaceBidAsync(global::PlaceBidRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+    {
+      return PlaceBidAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual grpc::AsyncUnaryCall<global::PlaceBidResponse> PlaceBidAsync(global::PlaceBidRequest request, grpc::CallOptions options)
+    {
+      return CallInvoker.AsyncUnaryCall(__Method_PlaceBid, null, options, request);
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual global::AuctionList GetAllAuctions(global::AuctionEmpty request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+    {
+      return GetAllAuctions(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual global::AuctionList GetAllAuctions(global::AuctionEmpty request, grpc::CallOptions options)
+    {
+      return CallInvoker.BlockingUnaryCall(__Method_GetAllAuctions, null, options, request);
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual grpc::AsyncUnaryCall<global::AuctionList> GetAllAuctionsAsync(global::AuctionEmpty request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+    {
+      return GetAllAuctionsAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual grpc::AsyncUnaryCall<global::AuctionList> GetAllAuctionsAsync(global::AuctionEmpty request, grpc::CallOptions options)
+    {
+      return CallInvoker.AsyncUnaryCall(__Method_GetAllAuctions, null, options, request);
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual global::AuctionEmpty CloseAuction(global::AuctionResponse request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+    {
+      return CloseAuction(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual global::AuctionEmpty CloseAuction(global::AuctionResponse request, grpc::CallOptions options)
+    {
+      return CallInvoker.BlockingUnaryCall(__Method_CloseAuction, null, options, request);
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual grpc::AsyncUnaryCall<global::AuctionEmpty> CloseAuctionAsync(global::AuctionResponse request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+    {
+      return CloseAuctionAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual grpc::AsyncUnaryCall<global::AuctionEmpty> CloseAuctionAsync(global::AuctionResponse request, grpc::CallOptions options)
+    {
+      return CallInvoker.AsyncUnaryCall(__Method_CloseAuction, null, options, request);
     }
     /// <summary>Creates a new instance of client from given <c>ClientBaseConfiguration</c>.</summary>
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    protected override SeedNodeServiceClient NewInstance(ClientBaseConfiguration configuration)
+    protected override AuctionServiceClient NewInstance(ClientBaseConfiguration configuration)
     {
-      return new SeedNodeServiceClient(configuration);
+      return new AuctionServiceClient(configuration);
     }
   }
 
   /// <summary>Creates service definition that can be registered with a server</summary>
   /// <param name="serviceImpl">An object implementing the server-side handling logic.</param>
   [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-  public static grpc::ServerServiceDefinition BindService(SeedNodeServiceBase serviceImpl)
+  public static grpc::ServerServiceDefinition BindService(AuctionServiceBase serviceImpl)
   {
     return grpc::ServerServiceDefinition.CreateBuilder()
-        .AddMethod(__Method_RegisterNode, serviceImpl.RegisterNode).Build();
+        .AddMethod(__Method_InitiateAuction, serviceImpl.InitiateAuction)
+        .AddMethod(__Method_PlaceBid, serviceImpl.PlaceBid)
+        .AddMethod(__Method_GetAllAuctions, serviceImpl.GetAllAuctions)
+        .AddMethod(__Method_CloseAuction, serviceImpl.CloseAuction).Build();
   }
 
   /// <summary>Register service method with a service binder with or without implementation. Useful when customizing the service binding logic.
@@ -144,9 +259,12 @@ public static partial class SeedNodeService
   /// <param name="serviceBinder">Service methods will be bound by calling <c>AddMethod</c> on this object.</param>
   /// <param name="serviceImpl">An object implementing the server-side handling logic.</param>
   [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-  public static void BindService(grpc::ServiceBinderBase serviceBinder, SeedNodeServiceBase serviceImpl)
+  public static void BindService(grpc::ServiceBinderBase serviceBinder, AuctionServiceBase serviceImpl)
   {
-    serviceBinder.AddMethod(__Method_RegisterNode, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::RegisterRequest, global::EmptyMsg>(serviceImpl.RegisterNode));
+    serviceBinder.AddMethod(__Method_InitiateAuction, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::InitiateAuctionRequest, global::InitiateAuctionResponse>(serviceImpl.InitiateAuction));
+    serviceBinder.AddMethod(__Method_PlaceBid, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::PlaceBidRequest, global::PlaceBidResponse>(serviceImpl.PlaceBid));
+    serviceBinder.AddMethod(__Method_GetAllAuctions, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::AuctionEmpty, global::AuctionList>(serviceImpl.GetAllAuctions));
+    serviceBinder.AddMethod(__Method_CloseAuction, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::AuctionResponse, global::AuctionEmpty>(serviceImpl.CloseAuction));
   }
 
 }

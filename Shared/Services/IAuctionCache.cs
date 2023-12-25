@@ -11,6 +11,6 @@ namespace Shared.Services
         void AddAuction(AuctionResponse auction);
         void UpdateAuction(AuctionResponse auction);
         void DeleteAuction(AuctionResponse auction);
-        List<AuctionResponse> GetMyAuctions();
+        List<AuctionResponse> GetAuctions();
     }
 }

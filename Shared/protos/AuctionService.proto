@@ -34,6 +34,9 @@ message AuctionList{
 message AuctionResponse{
     string auction_id =1;
     string owner_node_id=2;
+    string address=3;
+    InitiateAuctionRequest auctionRequest=4;
+
 }
 
 

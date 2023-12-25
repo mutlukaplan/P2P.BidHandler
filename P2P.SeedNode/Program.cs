@@ -1,4 +1,5 @@
 ﻿using Grpc.Core;
+using Shared.Services;
 using System.Collections.Concurrent;
 
 namespace P2P.SeedNode
@@ -12,7 +13,7 @@ namespace P2P.SeedNode
 
             var server = new Server
             {
-                Services = { SeedNodeService.BindService(new SeedNodeServiceImpl()) },
+                Services = { SeedNodeService.BindService(new SeedNodeServiceImpl()), BroadcastService.BindService(new BroadcastServiceImpl()) },
                 Ports = { new ServerPort("localhost", Port, ServerCredentials.Insecure) }
             };
 

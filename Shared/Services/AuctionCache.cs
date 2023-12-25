@@ -25,7 +25,7 @@ namespace Shared.Services
             }
         }
 
-        public List<AuctionResponse> GetMyAuctions()
+        public List<AuctionResponse> GetAuctions()
         {
             return _auctions.Values.ToList();
         }

@@ -42,7 +42,7 @@ namespace Shared.Services
         public override Task<AuctionList> GetAllAuctions(AuctionEmpty request, ServerCallContext context)
         {
             var idealist = new AuctionList();
-            var allNodeAuctions = _auctionCache.GetMyAuctions();
+            var allNodeAuctions = _auctionCache.GetAuctions();
             idealist.AuctionList_.AddRange(allNodeAuctions);
             return Task.FromResult(idealist);
         }

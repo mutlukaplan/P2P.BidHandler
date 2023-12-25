@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <None Remove="protos\AuctionService.proto" />
+    <None Remove="protos\BroadcastService.proto" />
     <None Remove="protos\PubSubService.proto" />
     <None Remove="protos\SeedNodeService.proto" />
   </ItemGroup>
@@ -24,6 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Protobuf Include="protos\BroadcastService.proto" />
     <Protobuf Include="protos\SeedNodeService.proto" />
     <Protobuf Include="protos\AuctionService.proto" />
     <Protobuf Include="protos\PubSubService.proto" />

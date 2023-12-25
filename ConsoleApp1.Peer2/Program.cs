@@ -8,19 +8,34 @@ namespace ConsoleApp1.Peer2
 {
     class Program
     {
+        public static GrpcChannel? mainChannel;
+        public static SeedNodeService.SeedNodeServiceClient? seedClient;
+        public static BroadcastService.BroadcastServiceClient? broadcastClient;
+        const int MainChannelPort = 50055;
+        public static IAuctionCache auctionCache;
+        public static string NodeId;
+        public static string NodeHost;
+        public static int NodePort;
+
+
+        static Program()
+        {
+            mainChannel = GrpcChannel.ForAddress($"http://localhost:{MainChannelPort}");
+            seedClient = new SeedNodeService.SeedNodeServiceClient(mainChannel);
+            broadcastClient = new BroadcastService.BroadcastServiceClient(mainChannel);
+            NodeId = Guid.NewGuid().ToString();
+            auctionCache = new AuctionCache();
+            NodeHost = "localhost";
+            NodePort = 50052;
+        }
 
         static async Task Main(string[] args)
         {
-            const int NodePort = 50052;
-            const string NodeHost = "localhost";
-
-            string nodeId = Guid.NewGuid().ToString();
-
             var serviceProvider = new ServiceCollection()
                     .AddSingleton<IAuctionCache, AuctionCache>() // Register your local service implementation.
                     .BuildServiceProvider();
 
-            var serviceCache= serviceProvider.GetRequiredService<IAuctionCache>();
+            var serviceCache = serviceProvider.GetRequiredService<IAuctionCache>();
 
             var server = new Server
             {
@@ -28,11 +43,12 @@ namespace ConsoleApp1.Peer2
                 Ports = { new ServerPort(NodeHost, NodePort, ServerCredentials.Insecure) }
             };
 
-            RegisterClientAndStart(NodePort, nodeId, server, NodeHost);
+
+            RegisterClientAndStart(NodePort, NodeId, server, NodeHost);
+
+            StartListeningBroadcastMessages();
 
             //var channel = GrpcChannel.ForAddress($"http://localhost:{50052}");
-
-
 
             ShowMenu();
             GetInput();
@@ -48,8 +64,9 @@ namespace ConsoleApp1.Peer2
             Console.WriteLine("============================================================");
             Console.WriteLine("============================================================");
             Console.WriteLine("                    1. Get All Auctions");
-            Console.WriteLine("                    2. Make a Bid");
-            Console.WriteLine("                    3. Exit");
+            Console.WriteLine("                    2. Make a Bid for an auction");
+            Console.WriteLine("                    4. Send Message");
+            Console.WriteLine("                    5. Exit");
             Console.WriteLine("------------------------------------------------------------");
         }
 
@@ -66,7 +83,7 @@ namespace ConsoleApp1.Peer2
 
             var nodeAddress = $"http://{NodeHost}:{NodePort}";
 
-            var registerRequest = new RegisterRequest { NodeId = nodeId, NodeAddress= nodeAddress };
+            var registerRequest = new RegisterRequest { NodeId = nodeId, NodeAddress = nodeAddress };
 
             var response = seedClient.RegisterNode(registerRequest);
 
@@ -89,15 +106,63 @@ namespace ConsoleApp1.Peer2
                         MakeBid();
                         break;
                     case "3":
-                        // DoSendCoin();
+                        CreateAuction();
                         break;
 
                     case "4":
+                        SendAuctionToTheChannel();
+                        break;
+
+                    case "5":
                         DoExit();
                         break;
                 }
             }
 
+        }
+
+        private static void CreateAuction()
+        {
+            throw new NotImplementedException();
+        }
+
+        private static void SendAuctionToTheChannel()
+        {
+            Console.WriteLine("write your message");
+            var message = Console.ReadLine();
+
+            var request = new BroadcastMessage { Text = message, AuctionId = Guid.NewGuid().ToString(), OwnerId = NodeId, Address = $"http://{NodeHost}:{NodePort}" };
+            _ = broadcastClient?.Broadcast(request);
+            Console.WriteLine("Message sent to all nodes.");
+        }
+
+        private static void StartListeningBroadcastMessages()
+        {
+            var cancellationTokenSource = new CancellationTokenSource();
+
+            var call = broadcastClient?.ReceiveBroadcast(new BroadcastEmpty());
+
+            var messageHandlerTask = Task.Run(async () =>
+            {
+                try
+                {
+                    await foreach (var message in call.ResponseStream.ReadAllAsync(cancellationTokenSource.Token))
+                    {
+                        if (!string.IsNullOrEmpty(message.Text) && !string.IsNullOrEmpty(message.AuctionId) && !string.IsNullOrEmpty(message.OwnerId))
+                        {
+                            Console.WriteLine($"Received broadcast: {message.Text}");
+                            var auctionResponse = new AuctionResponse { AuctionId = message.AuctionId, OwnerNodeId = message.OwnerId, Address = message.Address };
+                            auctionCache.AddAuction(auctionResponse);
+                        }
+                    }
+                }
+                catch (RpcException ex) when (ex.StatusCode == StatusCode.Cancelled)
+                {
+                    Console.WriteLine("Broadcast subscription canceled.");
+                }
+            });
+
+            return;
         }
 
         private static void DoExit()
@@ -112,8 +177,14 @@ namespace ConsoleApp1.Peer2
 
         private static void GetAllAuctions()
         {
-            throw new NotImplementedException();
-        }
+            var getAllAuctions = auctionCache.GetAuctions();
 
+            foreach (var auction in getAllAuctions)
+            {
+                Console.WriteLine($"AuctionId: {auction.AuctionId} Item Name: {auction.AuctionRequest.ItemName}, with a starting price of {auction.AuctionRequest.StartingPrice}");
+            }
+
+            return;
+        }
     }
 }
