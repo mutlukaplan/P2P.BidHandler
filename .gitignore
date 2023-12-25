@@ -9,6 +9,12 @@ Debug/
 obj/
 .vs/
 .suo
-*/.dll
-/Shared/bin/Debug/net6.0/Shared.dll
-/Shared/bin/Debug/net6.0/Shared.pdb
+*.dll
+*.pdb
+/Shared/obj/Debug/
+
+/Shared/obj/Debug/net6.0/
+/Shared/obj/Debug/net6.0/refint/Shared.dll
+/Shared/obj/Debug/net6.0/Shared.dll
+/Shared/obj/Debug/net6.0/Shared.pdb
+/Shared/obj/Debug/net6.0/ref/Shared.dll
