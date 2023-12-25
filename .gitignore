@@ -4,5 +4,11 @@
 
 *.vs
 *obj
-*bin
-/.vs
+bin/
+Debug/
+obj/
+.vs/
+.suo
+*/.dll
+/Shared/bin/Debug/net6.0/Shared.dll
+/Shared/bin/Debug/net6.0/Shared.pdb
