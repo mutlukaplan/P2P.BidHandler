@@ -353,6 +353,12 @@ namespace Shared
 
         protected static void RunPeer()
         {
+            Console.WriteLine($"current NodeId:{NodeId}");
+            mainChannel = GrpcChannel.ForAddress($"http://localhost:{MainChannelPort}");
+            seedClient = new SeedNodeService.SeedNodeServiceClient(mainChannel);
+            broadcastClient = new BroadcastService.BroadcastServiceClient(mainChannel);
+            NodeId = Guid.NewGuid().ToString();
+
             Server server = RegisterServices();
             RegisterClientAndStart(NodePort, NodeId, server, NodeHost);
             StartListeningBroadcastMessages();

@@ -1,10 +1,4 @@
-﻿using Grpc.Core;
-using Grpc.Net.Client;
-using Microsoft.Extensions.DependencyInjection;
-using Shared;
-using Shared.Services;
-using System.Collections.Concurrent;
-using System.Threading.Channels;
+﻿using Shared;
 
 namespace ConsoleApp1.Peer2
 {
@@ -12,10 +6,6 @@ namespace ConsoleApp1.Peer2
     {
         static Program()
         {
-            mainChannel = GrpcChannel.ForAddress($"http://localhost:{MainChannelPort}");
-            seedClient = new SeedNodeService.SeedNodeServiceClient(mainChannel);
-            broadcastClient = new BroadcastService.BroadcastServiceClient(mainChannel);
-            NodeId = Guid.NewGuid().ToString();
             NodeHost = "localhost";
             NodePort = 50052;
         }
