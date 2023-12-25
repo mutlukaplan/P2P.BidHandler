@@ -18,7 +18,7 @@ message InitiateAuctionResponse {
 }
 
 message PlaceBidRequest {
-    int32 auction_id = 1;
+    string auction_id = 1;
     double bid_amount = 2;
     string bidder = 3;
 }
@@ -36,7 +36,7 @@ message AuctionResponse{
     string owner_node_id=2;
     string address=3;
     InitiateAuctionRequest auctionRequest=4;
-
+    string bidder=5;
 }
 
 

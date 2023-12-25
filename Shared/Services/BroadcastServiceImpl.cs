@@ -24,6 +24,7 @@ namespace Shared.Services
             var ownerId = request.OwnerId;
             var item_name = request.ItemName;
             var starting_price = request.StartingPrice;
+            var bidder= request.Bidder;
 
             var response = new BroadcastMessage
             {
@@ -32,6 +33,7 @@ namespace Shared.Services
                 OwnerId = ownerId,
                 ItemName = item_name,
                 StartingPrice = starting_price,
+                Bidder = bidder,
             };
 
             // Broadcast the message to all connected clients.

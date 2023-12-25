@@ -22,20 +22,20 @@ public static partial class BroadcastServiceReflection {
   static BroadcastServiceReflection() {
     byte[] descriptorData = global::System.Convert.FromBase64String(
         string.Concat(
-          "Ch1wcm90b3MvQnJvYWRjYXN0U2VydmljZS5wcm90byKCAQoQQnJvYWRjYXN0",
+          "Ch1wcm90b3MvQnJvYWRjYXN0U2VydmljZS5wcm90byKSAQoQQnJvYWRjYXN0",
           "TWVzc2FnZRIMCgR0ZXh0GAEgASgJEhIKCmF1Y3Rpb25faWQYAiABKAkSEAoI",
           "b3duZXJfaWQYAyABKAkSDwoHYWRkcmVzcxgEIAEoCRIRCglpdGVtX25hbWUY",
-          "BSABKAkSFgoOc3RhcnRpbmdfcHJpY2UYBiABKAEiEAoOQnJvYWRjYXN0RW1w",
-          "dHky4QEKEEJyb2FkY2FzdFNlcnZpY2USLwoJQnJvYWRjYXN0EhEuQnJvYWRj",
-          "YXN0TWVzc2FnZRoPLkJyb2FkY2FzdEVtcHR5EjEKCVN1YnNjcmliZRIPLkJy",
-          "b2FkY2FzdEVtcHR5GhEuQnJvYWRjYXN0TWVzc2FnZTABEi8KC1Vuc3Vic2Ny",
-          "aWJlEg8uQnJvYWRjYXN0RW1wdHkaDy5Ccm9hZGNhc3RFbXB0eRI4ChBSZWNl",
-          "aXZlQnJvYWRjYXN0Eg8uQnJvYWRjYXN0RW1wdHkaES5Ccm9hZGNhc3RNZXNz",
-          "YWdlMAFiBnByb3RvMw=="));
+          "BSABKAkSFgoOc3RhcnRpbmdfcHJpY2UYBiABKAESDgoGYmlkZGVyGAcgASgJ",
+          "IhAKDkJyb2FkY2FzdEVtcHR5MuEBChBCcm9hZGNhc3RTZXJ2aWNlEi8KCUJy",
+          "b2FkY2FzdBIRLkJyb2FkY2FzdE1lc3NhZ2UaDy5Ccm9hZGNhc3RFbXB0eRIx",
+          "CglTdWJzY3JpYmUSDy5Ccm9hZGNhc3RFbXB0eRoRLkJyb2FkY2FzdE1lc3Nh",
+          "Z2UwARIvCgtVbnN1YnNjcmliZRIPLkJyb2FkY2FzdEVtcHR5Gg8uQnJvYWRj",
+          "YXN0RW1wdHkSOAoQUmVjZWl2ZUJyb2FkY2FzdBIPLkJyb2FkY2FzdEVtcHR5",
+          "GhEuQnJvYWRjYXN0TWVzc2FnZTABYgZwcm90bzM="));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-          new pbr::GeneratedClrTypeInfo(typeof(global::BroadcastMessage), global::BroadcastMessage.Parser, new[]{ "Text", "AuctionId", "OwnerId", "Address", "ItemName", "StartingPrice" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::BroadcastMessage), global::BroadcastMessage.Parser, new[]{ "Text", "AuctionId", "OwnerId", "Address", "ItemName", "StartingPrice", "Bidder" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::BroadcastEmpty), global::BroadcastEmpty.Parser, null, null, null, null, null)
         }));
   }
@@ -84,6 +84,7 @@ public sealed partial class BroadcastMessage : pb::IMessage<BroadcastMessage>
     address_ = other.address_;
     itemName_ = other.itemName_;
     startingPrice_ = other.startingPrice_;
+    bidder_ = other.bidder_;
     _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
   }
 
@@ -165,6 +166,18 @@ public sealed partial class BroadcastMessage : pb::IMessage<BroadcastMessage>
     }
   }
 
+  /// <summary>Field number for the "bidder" field.</summary>
+  public const int BidderFieldNumber = 7;
+  private string bidder_ = "";
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public string Bidder {
+    get { return bidder_; }
+    set {
+      bidder_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+    }
+  }
+
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public override bool Equals(object other) {
@@ -186,6 +199,7 @@ public sealed partial class BroadcastMessage : pb::IMessage<BroadcastMessage>
     if (Address != other.Address) return false;
     if (ItemName != other.ItemName) return false;
     if (!pbc::ProtobufEqualityComparers.BitwiseDoubleEqualityComparer.Equals(StartingPrice, other.StartingPrice)) return false;
+    if (Bidder != other.Bidder) return false;
     return Equals(_unknownFields, other._unknownFields);
   }
 
@@ -199,6 +213,7 @@ public sealed partial class BroadcastMessage : pb::IMessage<BroadcastMessage>
     if (Address.Length != 0) hash ^= Address.GetHashCode();
     if (ItemName.Length != 0) hash ^= ItemName.GetHashCode();
     if (StartingPrice != 0D) hash ^= pbc::ProtobufEqualityComparers.BitwiseDoubleEqualityComparer.GetHashCode(StartingPrice);
+    if (Bidder.Length != 0) hash ^= Bidder.GetHashCode();
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
     }
@@ -241,6 +256,10 @@ public sealed partial class BroadcastMessage : pb::IMessage<BroadcastMessage>
       output.WriteRawTag(49);
       output.WriteDouble(StartingPrice);
     }
+    if (Bidder.Length != 0) {
+      output.WriteRawTag(58);
+      output.WriteString(Bidder);
+    }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(output);
     }
@@ -275,6 +294,10 @@ public sealed partial class BroadcastMessage : pb::IMessage<BroadcastMessage>
       output.WriteRawTag(49);
       output.WriteDouble(StartingPrice);
     }
+    if (Bidder.Length != 0) {
+      output.WriteRawTag(58);
+      output.WriteString(Bidder);
+    }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(ref output);
     }
@@ -302,6 +325,9 @@ public sealed partial class BroadcastMessage : pb::IMessage<BroadcastMessage>
     }
     if (StartingPrice != 0D) {
       size += 1 + 8;
+    }
+    if (Bidder.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(Bidder);
     }
     if (_unknownFields != null) {
       size += _unknownFields.CalculateSize();
@@ -332,6 +358,9 @@ public sealed partial class BroadcastMessage : pb::IMessage<BroadcastMessage>
     }
     if (other.StartingPrice != 0D) {
       StartingPrice = other.StartingPrice;
+    }
+    if (other.Bidder.Length != 0) {
+      Bidder = other.Bidder;
     }
     _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
   }
@@ -372,6 +401,10 @@ public sealed partial class BroadcastMessage : pb::IMessage<BroadcastMessage>
           StartingPrice = input.ReadDouble();
           break;
         }
+        case 58: {
+          Bidder = input.ReadString();
+          break;
+        }
       }
     }
   #endif
@@ -409,6 +442,10 @@ public sealed partial class BroadcastMessage : pb::IMessage<BroadcastMessage>
         }
         case 49: {
           StartingPrice = input.ReadDouble();
+          break;
+        }
+        case 58: {
+          Bidder = input.ReadString();
           break;
         }
       }

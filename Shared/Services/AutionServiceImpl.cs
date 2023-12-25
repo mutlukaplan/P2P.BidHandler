@@ -29,6 +29,33 @@ namespace Shared.Services
             // Implement the PlaceBid logic here
             bool bidAccepted = true /* Check if the bid is accepted */;
 
+            var auction = _auctionCache.GetAuctions().Where(p => p.AuctionId == request.AuctionId).FirstOrDefault();
+
+            if (auction != null)
+            {
+                var bidAmount = request.BidAmount;
+
+                if(auction.AuctionRequest.StartingPrice< bidAmount)
+                {
+                    auction.AuctionRequest.StartingPrice = bidAmount;
+
+                    var newAuctionInstance = new AuctionResponse
+                    {
+                        Address = auction.Address,
+                        AuctionId = auction.AuctionId,
+                        OwnerNodeId = auction.OwnerNodeId,
+                        Bidder= request.Bidder,
+                        AuctionRequest = new InitiateAuctionRequest
+                        {
+                            ItemName = auction.AuctionRequest.ItemName,
+                            StartingPrice = bidAmount,
+                        }
+                    };
+
+                    _auctionCache.UpdateAuction(newAuctionInstance);
+                }
+            }
+
             // Return whether the bid was accepted in the response
             return Task.FromResult(new PlaceBidResponse { Accepted = bidAccepted });
         }

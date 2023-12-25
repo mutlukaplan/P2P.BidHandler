@@ -14,6 +14,7 @@ message BroadcastMessage {
     string address=4;
     string item_name = 5;
     double starting_price = 6;
+    string bidder=7;
 }
 
 message BroadcastEmpty {}

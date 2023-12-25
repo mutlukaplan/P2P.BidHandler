@@ -110,7 +110,15 @@ namespace ConsoleApp1.Peer2
                         CreateAuction();
                         break;
 
+                    case "4":
+                        MyAuctions();
+                        break;
+
                     case "5":
+                        AcceptTheBid();
+                        break;
+
+                    case "6":
                         DoExit();
                         break;
                 }
@@ -118,6 +126,49 @@ namespace ConsoleApp1.Peer2
 
         }
 
+        private static void AcceptTheBid()
+        {
+            Console.WriteLine("type Auction Id to be selected");
+            
+            var auctionId = Console.ReadLine();
+
+            Console.WriteLine("Type 'Y' to accept or 'N' to decline it");
+
+            var acceptOrNot = Console.ReadLine();
+
+            switch (acceptOrNot)
+            {
+                case "Y":
+                    AcceptTheBidbyId(auctionId);
+
+                    break;
+                case "N":
+                    //Decline();
+                    break;
+            }
+
+        }
+
+        private static void Decline()
+        {
+            throw new NotImplementedException();
+        }
+
+        private static void AcceptTheBidbyId(string? auctionId)
+        {
+            throw new NotImplementedException();
+        }
+
+        private static void MyAuctions()
+        {
+            var getMyAuctions = auctionCache.GetAuctions().Where(p=>p.OwnerNodeId==NodeId).ToList();
+
+            foreach (var auction in getMyAuctions)
+            {
+                Console.WriteLine($"AuctionId: {auction.AuctionId} Item Name: {auction.AuctionRequest.ItemName}, with a current bid is{auction.AuctionRequest.StartingPrice}");
+            }        
+            return;
+        }
 
         private static void CreateAuction()
         {
@@ -129,12 +180,13 @@ namespace ConsoleApp1.Peer2
 
             var request = new BroadcastMessage
             {
-                Text = ItemName,
+                Text =  "Add",
                 AuctionId = Guid.NewGuid().ToString(),
                 OwnerId = NodeId,
                 Address = $"http://{NodeHost}:{NodePort}",
                 ItemName = ItemName,
-                StartingPrice = Convert.ToDouble(startingPrice)
+                StartingPrice = Convert.ToDouble(startingPrice),
+                Bidder = string.Empty
             };
             _ = broadcastClient?.Broadcast(request);
             Console.WriteLine("Auction is sent the the network!");
@@ -164,7 +216,8 @@ namespace ConsoleApp1.Peer2
                                 {
                                     StartingPrice = message.StartingPrice,
                                     ItemName = message.ItemName
-                                }
+                                },
+                                Bidder= message.Bidder
                             };
                             auctionCache.AddAuction(auctionResponse);
                         }
