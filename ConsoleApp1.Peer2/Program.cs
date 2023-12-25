@@ -22,28 +22,7 @@ namespace ConsoleApp1.Peer2
 
         static async Task Main(string[] args)
         {
-            Server server = RegisterServices();
-            RegisterClientAndStart(NodePort, NodeId, server, NodeHost);
-            StartListeningBroadcastMessages();
-            ShowMenu();
-            GetInput();
-            server.ShutdownAsync().Wait();
-        }
-
-        private static void ShowMenu()
-        {
-            Console.Clear();
-            Console.WriteLine("\n\n\n");
-            Console.WriteLine("                    P2p bidder ");
-            Console.WriteLine("============================================================");
-            Console.WriteLine("============================================================");
-            Console.WriteLine("                    1. Get All Auctions");
-            Console.WriteLine("                    2. Make a Bid for an auction");
-            Console.WriteLine("                    3. Create Auction");
-            Console.WriteLine("                    4. My Auctions");
-            Console.WriteLine("                    5. Accept the bid");
-            Console.WriteLine("                    6. Exit");
-            Console.WriteLine("------------------------------------------------------------");
+            RunPeer();
         }
     }
 

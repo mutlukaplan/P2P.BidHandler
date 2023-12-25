@@ -48,6 +48,9 @@ namespace Shared
                     //Decline();
                     break;
             }
+
+            Console.WriteLine("------------------------------------------------------------");
+            Console.WriteLine("-------------------------Main Menu--------------------------");
         }
 
 
@@ -99,6 +102,9 @@ namespace Shared
             };
             _ = broadcastClient?.Broadcast(request);
             Console.WriteLine($"Auction is sent the the network! {auctionId} is created");
+
+            Console.WriteLine("------------------------------------------------------------");
+            Console.WriteLine("-------------------------Main Menu--------------------------");
         }
 
         protected static void DoExit()
@@ -114,6 +120,9 @@ namespace Shared
             {
                 Console.WriteLine($"AuctionId: {auction.AuctionId} Item Name: {auction.AuctionRequest.ItemName}, with a starting price of {auction.AuctionRequest.StartingPrice}");
             }
+
+            Console.WriteLine("------------------------------------------------------------");
+            Console.WriteLine("-------------------------Main Menu--------------------------");
 
             return;
         }
@@ -187,6 +196,9 @@ namespace Shared
                 Console.WriteLine("Congrats, your bid is currently the highest one!.Pls don't forget, owner of the auction still needs to end the auction");
             else
                 Console.WriteLine("your bid is below the current bid amount");
+
+            Console.WriteLine("------------------------------------------------------------");
+            Console.WriteLine("-------------------------Main Menu--------------------------");
         }
 
         protected static void MyAuctions()
@@ -252,6 +264,7 @@ namespace Shared
                                     DeleteFromCache(message);
                                     break;
                             }
+                            Console.WriteLine("-------------------------Main Menu--------------------------");
                         }
                     }
                 }
@@ -336,6 +349,32 @@ namespace Shared
                 Ports = { new ServerPort(NodeHost, NodePort, ServerCredentials.Insecure) }
             };
             return server;
+        }
+
+        protected static void RunPeer()
+        {
+            Server server = RegisterServices();
+            RegisterClientAndStart(NodePort, NodeId, server, NodeHost);
+            StartListeningBroadcastMessages();
+            ShowMenu();
+            GetInput();
+            server.ShutdownAsync().Wait();
+        }
+
+        protected static void ShowMenu()
+        {
+            Console.Clear();
+            Console.WriteLine("\n\n\n");
+            Console.WriteLine("                    P2p bidder ");
+            Console.WriteLine("============================================================");
+            Console.WriteLine("============================================================");
+            Console.WriteLine("                    1. Get All Auctions");
+            Console.WriteLine("                    2. Make a Bid for an auction");
+            Console.WriteLine("                    3. Create Auction");
+            Console.WriteLine("                    4. My Auctions");
+            Console.WriteLine("                    5. Accept the bid");
+            Console.WriteLine("                    6. Exit");
+            Console.WriteLine("------------------------------------------------------------");
         }
     }
 }
