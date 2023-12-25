@@ -84,10 +84,10 @@ public static partial class AuctionService
       __Marshaller_AuctionList);
 
   [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-  static readonly grpc::Method<global::AuctionResponse, global::AuctionEmpty> __Method_CloseAuction = new grpc::Method<global::AuctionResponse, global::AuctionEmpty>(
+  static readonly grpc::Method<global::AuctionResponse, global::AuctionEmpty> __Method_FinalizeAuction = new grpc::Method<global::AuctionResponse, global::AuctionEmpty>(
       grpc::MethodType.Unary,
       __ServiceName,
-      "CloseAuction",
+      "FinalizeAuction",
       __Marshaller_AuctionResponse,
       __Marshaller_AuctionEmpty);
 
@@ -120,7 +120,7 @@ public static partial class AuctionService
     }
 
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    public virtual global::System.Threading.Tasks.Task<global::AuctionEmpty> CloseAuction(global::AuctionResponse request, grpc::ServerCallContext context)
+    public virtual global::System.Threading.Tasks.Task<global::AuctionEmpty> FinalizeAuction(global::AuctionResponse request, grpc::ServerCallContext context)
     {
       throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
     }
@@ -215,24 +215,24 @@ public static partial class AuctionService
       return CallInvoker.AsyncUnaryCall(__Method_GetAllAuctions, null, options, request);
     }
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    public virtual global::AuctionEmpty CloseAuction(global::AuctionResponse request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+    public virtual global::AuctionEmpty FinalizeAuction(global::AuctionResponse request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
     {
-      return CloseAuction(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      return FinalizeAuction(request, new grpc::CallOptions(headers, deadline, cancellationToken));
     }
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    public virtual global::AuctionEmpty CloseAuction(global::AuctionResponse request, grpc::CallOptions options)
+    public virtual global::AuctionEmpty FinalizeAuction(global::AuctionResponse request, grpc::CallOptions options)
     {
-      return CallInvoker.BlockingUnaryCall(__Method_CloseAuction, null, options, request);
+      return CallInvoker.BlockingUnaryCall(__Method_FinalizeAuction, null, options, request);
     }
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    public virtual grpc::AsyncUnaryCall<global::AuctionEmpty> CloseAuctionAsync(global::AuctionResponse request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+    public virtual grpc::AsyncUnaryCall<global::AuctionEmpty> FinalizeAuctionAsync(global::AuctionResponse request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
     {
-      return CloseAuctionAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      return FinalizeAuctionAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
     }
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    public virtual grpc::AsyncUnaryCall<global::AuctionEmpty> CloseAuctionAsync(global::AuctionResponse request, grpc::CallOptions options)
+    public virtual grpc::AsyncUnaryCall<global::AuctionEmpty> FinalizeAuctionAsync(global::AuctionResponse request, grpc::CallOptions options)
     {
-      return CallInvoker.AsyncUnaryCall(__Method_CloseAuction, null, options, request);
+      return CallInvoker.AsyncUnaryCall(__Method_FinalizeAuction, null, options, request);
     }
     /// <summary>Creates a new instance of client from given <c>ClientBaseConfiguration</c>.</summary>
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
@@ -251,7 +251,7 @@ public static partial class AuctionService
         .AddMethod(__Method_InitiateAuction, serviceImpl.InitiateAuction)
         .AddMethod(__Method_PlaceBid, serviceImpl.PlaceBid)
         .AddMethod(__Method_GetAllAuctions, serviceImpl.GetAllAuctions)
-        .AddMethod(__Method_CloseAuction, serviceImpl.CloseAuction).Build();
+        .AddMethod(__Method_FinalizeAuction, serviceImpl.FinalizeAuction).Build();
   }
 
   /// <summary>Register service method with a service binder with or without implementation. Useful when customizing the service binding logic.
@@ -264,7 +264,7 @@ public static partial class AuctionService
     serviceBinder.AddMethod(__Method_InitiateAuction, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::InitiateAuctionRequest, global::InitiateAuctionResponse>(serviceImpl.InitiateAuction));
     serviceBinder.AddMethod(__Method_PlaceBid, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::PlaceBidRequest, global::PlaceBidResponse>(serviceImpl.PlaceBid));
     serviceBinder.AddMethod(__Method_GetAllAuctions, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::AuctionEmpty, global::AuctionList>(serviceImpl.GetAllAuctions));
-    serviceBinder.AddMethod(__Method_CloseAuction, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::AuctionResponse, global::AuctionEmpty>(serviceImpl.CloseAuction));
+    serviceBinder.AddMethod(__Method_FinalizeAuction, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::AuctionResponse, global::AuctionEmpty>(serviceImpl.FinalizeAuction));
   }
 
 }

@@ -4,7 +4,7 @@ service AuctionService {
     rpc InitiateAuction (InitiateAuctionRequest) returns (InitiateAuctionResponse);
     rpc PlaceBid (PlaceBidRequest) returns (PlaceBidResponse);
     rpc GetAllAuctions(AuctionEmpty) returns (AuctionList);
-    rpc CloseAuction(AuctionResponse) returns (AuctionEmpty);
+    rpc FinalizeAuction(AuctionResponse) returns (AuctionEmpty);
 }
 
 message InitiateAuctionRequest {

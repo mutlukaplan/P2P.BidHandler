@@ -11,6 +11,7 @@ namespace ConsoleApp1.Peer2
         public static GrpcChannel? mainChannel;
         public static SeedNodeService.SeedNodeServiceClient? seedClient;
         public static BroadcastService.BroadcastServiceClient? broadcastClient;
+        public static AuctionService.AuctionServiceClient? auctionClient;
         const int MainChannelPort = 50055;
         public static IAuctionCache auctionCache;
         public static string NodeId;
@@ -66,7 +67,9 @@ namespace ConsoleApp1.Peer2
             Console.WriteLine("                    1. Get All Auctions");
             Console.WriteLine("                    2. Make a Bid for an auction");
             Console.WriteLine("                    3. Create Auction");
-            Console.WriteLine("                    5. Exit");
+            Console.WriteLine("                    4. My Auctions");
+            Console.WriteLine("                    5. Accept the bid");
+            Console.WriteLine("                    6. Exit");
             Console.WriteLine("------------------------------------------------------------");
         }
 
@@ -103,7 +106,7 @@ namespace ConsoleApp1.Peer2
                         GetAllAuctions();
                         break;
                     case "2":
-                        MakeBid();
+                        MakeBid(selection);
                         break;
 
                     case "3":
@@ -129,7 +132,7 @@ namespace ConsoleApp1.Peer2
         private static void AcceptTheBid()
         {
             Console.WriteLine("type Auction Id to be selected");
-            
+
             var auctionId = Console.ReadLine();
 
             Console.WriteLine("Type 'Y' to accept or 'N' to decline it");
@@ -146,27 +149,43 @@ namespace ConsoleApp1.Peer2
                     //Decline();
                     break;
             }
-
         }
 
-        private static void Decline()
-        {
-            throw new NotImplementedException();
-        }
 
+        /// <summary>
+        /// check if bid is your or not. Dont allow your node to accept the auction which it doesnt own.
+        /// </summary>
+        /// <param name="auctionId"></param>
+        /// <exception cref="NotImplementedException"></exception>
         private static void AcceptTheBidbyId(string? auctionId)
         {
-            throw new NotImplementedException();
+
+            var auction = auctionCache.GetAuctions().Where(a => a.AuctionId == auctionId).FirstOrDefault();
+
+
+            if (auction.OwnerNodeId != NodeId)
+            {
+                Console.WriteLine("You can not accpet the bid for an auction you dont own!");
+                return;
+            }
+
+            var auctionAddress = auction.Address;
+
+            var channel = GrpcChannel.ForAddress(auctionAddress);
+            auctionClient = new AuctionService.AuctionServiceClient(channel);
+            auctionClient.FinalizeAuction(auction);
+
+            Console.WriteLine("Bid is accepted!");
         }
 
         private static void MyAuctions()
         {
-            var getMyAuctions = auctionCache.GetAuctions().Where(p=>p.OwnerNodeId==NodeId).ToList();
+            var getMyAuctions = auctionCache.GetAuctions().Where(p => p.OwnerNodeId == NodeId).ToList();
 
             foreach (var auction in getMyAuctions)
             {
                 Console.WriteLine($"AuctionId: {auction.AuctionId} Item Name: {auction.AuctionRequest.ItemName}, with a current bid is{auction.AuctionRequest.StartingPrice}");
-            }        
+            }
             return;
         }
 
@@ -180,7 +199,7 @@ namespace ConsoleApp1.Peer2
 
             var request = new BroadcastMessage
             {
-                Text =  "Add",
+                Text = "Add",
                 AuctionId = Guid.NewGuid().ToString(),
                 OwnerId = NodeId,
                 Address = $"http://{NodeHost}:{NodePort}",
@@ -206,20 +225,65 @@ namespace ConsoleApp1.Peer2
                     {
                         if (!string.IsNullOrEmpty(message.Text) && !string.IsNullOrEmpty(message.AuctionId) && !string.IsNullOrEmpty(message.OwnerId))
                         {
-                            Console.WriteLine($"Received broadcast: {message.Text}");
-                            var auctionResponse = new AuctionResponse
+
+                            switch (message.Text)
                             {
-                                AuctionId = message.AuctionId,
-                                OwnerNodeId = message.OwnerId,
-                                Address = message.Address,
-                                AuctionRequest = new InitiateAuctionRequest
-                                {
-                                    StartingPrice = message.StartingPrice,
-                                    ItemName = message.ItemName
-                                },
-                                Bidder= message.Bidder
-                            };
-                            auctionCache.AddAuction(auctionResponse);
+                                case "add":
+                                    Console.WriteLine($"New Auction added to the channel: Item Name:  {message.ItemName}, current price:{message.StartingPrice} ");
+                                    var auctionResponse = new AuctionResponse
+                                    {
+                                        AuctionId = message.AuctionId,
+                                        OwnerNodeId = message.OwnerId,
+                                        Address = message.Address,
+                                        AuctionRequest = new InitiateAuctionRequest
+                                        {
+                                            StartingPrice = message.StartingPrice,
+                                            ItemName = message.ItemName
+                                        },
+                                        Bidder = message.Bidder
+                                    };
+                                    auctionCache.AddAuction(auctionResponse);
+                                    break;
+                                case "update":
+
+                                    Console.WriteLine($"Auction is  updated on the channel: Item Name:  {message.ItemName}, new bid:{message.StartingPrice} ");
+                                    var auctionResponse2 = new AuctionResponse
+                                    {
+                                        AuctionId = message.AuctionId,
+                                        OwnerNodeId = message.OwnerId,
+                                        Address = message.Address,
+                                        AuctionRequest = new InitiateAuctionRequest
+                                        {
+                                            StartingPrice = message.StartingPrice,
+                                            ItemName = message.ItemName
+                                        },
+                                        Bidder = message.Bidder
+                                    };
+                                    auctionCache.UpdateAuction(auctionResponse2);
+
+                                    break;
+
+                                case "delete":
+                                    // inform the channel about bid is ended and send messages about who won the auction
+
+                                    Console.WriteLine($"Auction is  ended on the channel: Item Name:  {message.ItemName}, new bid:{message.StartingPrice} ");
+                                    Console.WriteLine($"Winning bidder Id is {message.Bidder}, bidder address:  {message.Address}");
+                                    var auctionResponse3 = new AuctionResponse
+                                    {
+                                        AuctionId = message.AuctionId,
+                                        OwnerNodeId = message.OwnerId,
+                                        Address = message.Address,
+                                        AuctionRequest = new InitiateAuctionRequest
+                                        {
+                                            StartingPrice = message.StartingPrice,
+                                            ItemName = message.ItemName
+                                        },
+                                        Bidder = message.Bidder
+                                    };
+                                    auctionCache.DeleteAuction(auctionResponse3);
+                                    break;
+                            }
+
                         }
                     }
                 }
@@ -234,12 +298,40 @@ namespace ConsoleApp1.Peer2
 
         private static void DoExit()
         {
-            throw new NotImplementedException();
+            Environment.Exit(0);
         }
 
-        private static void MakeBid()
+        /// <summary>
+        /// check if its yours, dont allow to make a bid
+        /// </summary>
+        /// <exception cref="NotImplementedException"></exception>
+        private static void MakeBid(string selection)
         {
-            throw new NotImplementedException();
+            Console.WriteLine("pls enter your bid amount");
+
+            var bidAmount = Console.ReadLine();
+
+            var auction = auctionCache.GetAuctions().Where(a => a.AuctionId == selection).FirstOrDefault();
+
+            if (auction.OwnerNodeId == NodeId)
+            {
+                Console.WriteLine("you can not make a bid for your own auction!");
+                return;
+            }
+
+            var auctionAddress = auction.Address;
+
+            var channel = GrpcChannel.ForAddress(auctionAddress);
+            auctionClient = new AuctionService.AuctionServiceClient(channel);
+
+            var bidReq = new PlaceBidRequest { AuctionId = auction.AuctionId, BidAmount = Convert.ToDouble(bidAmount), Bidder = NodeId };
+
+            var response = auctionClient.PlaceBid(bidReq);
+
+            if (response.Accepted)
+                Console.WriteLine("Congrats, your bid is currently the highest one!.Pls don't forget, owner of the auction still needs to end the auction");
+            else
+                Console.WriteLine("your bid is below the current bid amount");
         }
 
         private static void GetAllAuctions()

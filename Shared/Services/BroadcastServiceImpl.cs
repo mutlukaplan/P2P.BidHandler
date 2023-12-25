@@ -1,21 +1,11 @@
 ﻿using Grpc.Core;
-using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Shared.Services
 {
     public class BroadcastServiceImpl : BroadcastService.BroadcastServiceBase
     {
-        //    private static readonly List<IServerStreamWriter<BroadcastMessage>> Subscribers =
-        //new List<IServerStreamWriter<BroadcastMessage>>();
-
         private static readonly List<IAsyncStreamWriter<BroadcastMessage>> Subscribers =
-     new List<IAsyncStreamWriter<BroadcastMessage>>();
+                new List<IAsyncStreamWriter<BroadcastMessage>>();
 
         public override Task<BroadcastEmpty> Broadcast(BroadcastMessage request, ServerCallContext context)
         {
@@ -24,7 +14,7 @@ namespace Shared.Services
             var ownerId = request.OwnerId;
             var item_name = request.ItemName;
             var starting_price = request.StartingPrice;
-            var bidder= request.Bidder;
+            var bidder = request.Bidder;
 
             var response = new BroadcastMessage
             {
@@ -83,21 +73,5 @@ namespace Shared.Services
                 }
             }
         }
-
-        //public override Task<BroadcastEmpty> Unsubscribe(BroadcastEmpty request, ServerCallContext context)
-        //{
-        //    // Remove the client's stream writer from the list of subscribers when they unsubscribe.
-        //    lock (Subscribers)
-        //    {
-        //        var subscriberToRemove = Subscribers.Find(s => s == context.ResponseStream);
-        //        if (subscriberToRemove != null)
-        //        {
-        //            Subscribers.Remove(subscriberToRemove);
-        //        }
-        //    }
-
-        //    return Task.FromResult(new BroadcastEmpty());
-        //}
-
     }
 }

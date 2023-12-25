@@ -1,19 +1,20 @@
 ﻿using Grpc.Core;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Grpc.Net.Client;
 
 namespace Shared.Services
 {
     public class AutionServiceImpl : AuctionService.AuctionServiceBase
     {
         private readonly IAuctionCache _auctionCache;
+        public  BroadcastService.BroadcastServiceClient? broadcastClient;
+        const int MainChannelPort = 50055;
+        public  GrpcChannel? mainChannel;
 
         public AutionServiceImpl(IAuctionCache auctionCache)
         {
             _auctionCache = auctionCache;
+            mainChannel = GrpcChannel.ForAddress($"http://localhost:{MainChannelPort}");
+            broadcastClient = new BroadcastService.BroadcastServiceClient(mainChannel);
         }
         public override Task<InitiateAuctionResponse> InitiateAuction(InitiateAuctionRequest request, ServerCallContext context)
         {
@@ -26,8 +27,7 @@ namespace Shared.Services
 
         public override Task<PlaceBidResponse> PlaceBid(PlaceBidRequest request, ServerCallContext context)
         {
-            // Implement the PlaceBid logic here
-            bool bidAccepted = true /* Check if the bid is accepted */;
+            bool bidAccepted = false /* Check if the bid is accepted */;
 
             var auction = _auctionCache.GetAuctions().Where(p => p.AuctionId == request.AuctionId).FirstOrDefault();
 
@@ -37,28 +37,17 @@ namespace Shared.Services
 
                 if(auction.AuctionRequest.StartingPrice< bidAmount)
                 {
-                    auction.AuctionRequest.StartingPrice = bidAmount;
-
-                    var newAuctionInstance = new AuctionResponse
-                    {
-                        Address = auction.Address,
-                        AuctionId = auction.AuctionId,
-                        OwnerNodeId = auction.OwnerNodeId,
-                        Bidder= request.Bidder,
-                        AuctionRequest = new InitiateAuctionRequest
-                        {
-                            ItemName = auction.AuctionRequest.ItemName,
-                            StartingPrice = bidAmount,
-                        }
-                    };
-
-                    _auctionCache.UpdateAuction(newAuctionInstance);
+                    //sent message to the channel about new bid price
+                    UpdateChannelAboutBid(request, auction, bidAmount);
+                    bidAccepted = true;
                 }
             }
 
             // Return whether the bid was accepted in the response
             return Task.FromResult(new PlaceBidResponse { Accepted = bidAccepted });
         }
+
+
         /// <summary>
         /// That function should return all the auctions. This is something slightly wrong as it returns just local auctions. 
         /// Normally it should get all the registered nodes as parameter and getl all the auctions of those nodes
@@ -74,11 +63,41 @@ namespace Shared.Services
             return Task.FromResult(idealist);
         }
 
-        public override Task<AuctionEmpty> CloseAuction(AuctionResponse request, ServerCallContext context)
+        public override Task<AuctionEmpty> FinalizeAuction(AuctionResponse request, ServerCallContext context)
         {
-            _auctionCache.DeleteAuction(request);
+            UpdateChannelAboutAuctionEnded(request);
             // update all nodes
             return Task.FromResult(new AuctionEmpty());
+        }
+
+        private void UpdateChannelAboutAuctionEnded(AuctionResponse request)
+        {
+            var broadCastRequest = new BroadcastMessage
+            {
+                Text = "delete",
+                AuctionId = request.AuctionId,
+                OwnerId = request.OwnerNodeId,
+                Address = request.Address,
+                ItemName = request.AuctionRequest.ItemName,
+                StartingPrice = request.AuctionRequest.StartingPrice,
+                Bidder = request.Bidder
+            };
+            _ = broadcastClient?.Broadcast(broadCastRequest);
+        }
+
+        private void UpdateChannelAboutBid(PlaceBidRequest request, AuctionResponse? auction, double bidAmount)
+        {
+            var broadCastRequest = new BroadcastMessage
+            {
+                Text = "update",
+                AuctionId = auction.AuctionId,
+                OwnerId = auction.OwnerNodeId,
+                Address = auction.Address,
+                ItemName = auction.AuctionRequest.ItemName,
+                StartingPrice = bidAmount,
+                Bidder = request.Bidder
+            };
+            _ = broadcastClient?.Broadcast(broadCastRequest);
         }
     }
 }
