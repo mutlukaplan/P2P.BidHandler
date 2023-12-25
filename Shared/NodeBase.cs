@@ -178,8 +178,9 @@ namespace Shared
 
             var bidAmount = Console.ReadLine();
 
-            var auction = auctionCache.GetAuctions().Where(a => a.AuctionId == auctionSelection).FirstOrDefault();
+             auctionSelection = auctionSelection.Replace(" ", "");
 
+            var auction = auctionCache.GetAuctions().Where(a => a.AuctionId == auctionSelection).FirstOrDefault();
 
             if (auction.OwnerNodeId == NodeId)
             {
