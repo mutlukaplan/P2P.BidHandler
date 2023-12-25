@@ -33,12 +33,10 @@ public static partial class AuctionServiceReflection {
           "dWN0aW9uX2lkGAEgASgJEhUKDW93bmVyX25vZGVfaWQYAiABKAkSDwoHYWRk",
           "cmVzcxgDIAEoCRIvCg5hdWN0aW9uUmVxdWVzdBgEIAEoCzIXLkluaXRpYXRl",
           "QXVjdGlvblJlcXVlc3QSDgoGYmlkZGVyGAUgASgJIg4KDEF1Y3Rpb25FbXB0",
-          "eTLqAQoOQXVjdGlvblNlcnZpY2USRAoPSW5pdGlhdGVBdWN0aW9uEhcuSW5p",
-          "dGlhdGVBdWN0aW9uUmVxdWVzdBoYLkluaXRpYXRlQXVjdGlvblJlc3BvbnNl",
-          "Ei8KCFBsYWNlQmlkEhAuUGxhY2VCaWRSZXF1ZXN0GhEuUGxhY2VCaWRSZXNw",
-          "b25zZRItCg5HZXRBbGxBdWN0aW9ucxINLkF1Y3Rpb25FbXB0eRoMLkF1Y3Rp",
-          "b25MaXN0EjIKD0ZpbmFsaXplQXVjdGlvbhIQLkF1Y3Rpb25SZXNwb25zZRoN",
-          "LkF1Y3Rpb25FbXB0eWIGcHJvdG8z"));
+          "eTKkAQoOQXVjdGlvblNlcnZpY2USLwoIUGxhY2VCaWQSEC5QbGFjZUJpZFJl",
+          "cXVlc3QaES5QbGFjZUJpZFJlc3BvbnNlEi0KDkdldEFsbEF1Y3Rpb25zEg0u",
+          "QXVjdGlvbkVtcHR5GgwuQXVjdGlvbkxpc3QSMgoPRmluYWxpemVBdWN0aW9u",
+          "EhAuQXVjdGlvblJlc3BvbnNlGg0uQXVjdGlvbkVtcHR5YgZwcm90bzM="));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {

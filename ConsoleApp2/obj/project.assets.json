@@ -174,7 +174,8 @@
           "Google.Protobuf": "3.25.1",
           "Grpc.Core": "2.46.6",
           "Grpc.Core.Api": "2.59.0",
-          "Grpc.Net.Client": "2.59.0"
+          "Grpc.Net.Client": "2.59.0",
+          "Microsoft.Extensions.DependencyInjection": "8.0.0"
         },
         "compile": {
           "bin/placeholder/Shared.dll": {}

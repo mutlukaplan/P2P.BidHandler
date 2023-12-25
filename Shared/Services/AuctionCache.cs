@@ -13,8 +13,6 @@ namespace Shared.Services
         {
             _auctions = auctionCsh;
         }
-       // private readonly Dictionary<string, AuctionResponse> _auctions = new();
-        private object _lock = new object();
 
         public void AddAuction(AuctionResponse auction)
         {
@@ -23,11 +21,6 @@ namespace Shared.Services
                 throw new ArgumentNullException(nameof(auction));
             }
             var message = string.Empty;
-
-            //lock (_lock)
-            //{
-
-            //}
 
             if (_auctions.TryAdd(auction.AuctionId, auction))
             {

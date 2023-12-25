@@ -9,7 +9,6 @@
   <ItemGroup>
     <None Remove="protos\AuctionService.proto" />
     <None Remove="protos\BroadcastService.proto" />
-    <None Remove="protos\PubSubService.proto" />
     <None Remove="protos\SeedNodeService.proto" />
   </ItemGroup>
 
@@ -22,13 +21,13 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <Protobuf Include="protos\BroadcastService.proto" />
     <Protobuf Include="protos\SeedNodeService.proto" />
     <Protobuf Include="protos\AuctionService.proto" />
-    <Protobuf Include="protos\PubSubService.proto" />
   </ItemGroup>
 
 </Project>

@@ -7,6 +7,10 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="ProgramBase.cs" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="Google.Protobuf" Version="3.25.1" />

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "ItBg7PfQ+TGa3RIKTh3t/o5UKTGefAXd71w9co70Eo1a3AWN/DCUOvpN6b5nvIi4KWQJJblhcRextHgzFkzxXA==",
+  "dgSpecHash": "WDaTdvQS4AgX8s16CBl0pYdPaOBZMu+Qw+dnsahBahJIrjLj8zNrQAVkGL3s3h91yewv/EU/12gUDN8smvghUQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\mutlu\\source\\repos\\ConsoleApp2\\Shared\\Shared.csproj",
   "expectedPackageFiles": [
@@ -10,6 +10,8 @@
     "C:\\Users\\mutlu\\.nuget\\packages\\grpc.net.client\\2.59.0\\grpc.net.client.2.59.0.nupkg.sha512",
     "C:\\Users\\mutlu\\.nuget\\packages\\grpc.net.common\\2.59.0\\grpc.net.common.2.59.0.nupkg.sha512",
     "C:\\Users\\mutlu\\.nuget\\packages\\grpc.tools\\2.60.0\\grpc.tools.2.60.0.nupkg.sha512",
+    "C:\\Users\\mutlu\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\8.0.0\\microsoft.extensions.dependencyinjection.8.0.0.nupkg.sha512",
+    "C:\\Users\\mutlu\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\8.0.0\\microsoft.extensions.dependencyinjection.abstractions.8.0.0.nupkg.sha512",
     "C:\\Users\\mutlu\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\6.0.0\\microsoft.extensions.logging.abstractions.6.0.0.nupkg.sha512",
     "C:\\Users\\mutlu\\.nuget\\packages\\system.memory\\4.5.3\\system.memory.4.5.3.nupkg.sha512"
   ],

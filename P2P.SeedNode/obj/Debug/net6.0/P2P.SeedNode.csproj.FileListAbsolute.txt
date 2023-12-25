@@ -27,3 +27,5 @@ C:\Users\mutlu\source\repos\ConsoleApp2\P2P.SeedNode\obj\Debug\net6.0\P2P.SeedNo
 C:\Users\mutlu\source\repos\ConsoleApp2\P2P.SeedNode\obj\Debug\net6.0\ref\P2P.SeedNode.dll
 C:\Users\mutlu\source\repos\ConsoleApp2\P2P.SeedNode\bin\Debug\net6.0\Shared.dll
 C:\Users\mutlu\source\repos\ConsoleApp2\P2P.SeedNode\bin\Debug\net6.0\Shared.pdb
+C:\Users\mutlu\source\repos\ConsoleApp2\P2P.SeedNode\bin\Debug\net6.0\Microsoft.Extensions.DependencyInjection.dll
+C:\Users\mutlu\source\repos\ConsoleApp2\P2P.SeedNode\bin\Debug\net6.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
