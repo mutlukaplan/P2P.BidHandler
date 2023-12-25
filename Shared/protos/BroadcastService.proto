@@ -12,6 +12,8 @@ message BroadcastMessage {
     string auction_id=2;
     string owner_id=3;
     string address=4;
+    string item_name = 5;
+    double starting_price = 6;
 }
 
 message BroadcastEmpty {}

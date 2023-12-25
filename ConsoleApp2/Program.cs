@@ -62,8 +62,8 @@ namespace ConsoleApp2
             Console.WriteLine("============================================================");
             Console.WriteLine("============================================================");
             Console.WriteLine("                    1. Get All Auctions");
-            Console.WriteLine("                    2. Make a Bid");
-            Console.WriteLine("                    4. Send Message");
+            Console.WriteLine("                    2. Make a Bid for an auction");
+            Console.WriteLine("                    3. Create Auction");
             Console.WriteLine("                    5. Exit");
             Console.WriteLine("------------------------------------------------------------");
         }
@@ -103,12 +103,9 @@ namespace ConsoleApp2
                     case "2":
                         MakeBid();
                         break;
-                    case "3":
-                        //GetBroadcastMessages();
-                        break;
 
-                    case "4":
-                        SendAuctionToTheChannel();
+                    case "3":
+                        CreateAuction();
                         break;
 
                     case "5":
@@ -117,17 +114,6 @@ namespace ConsoleApp2
                 }
             }
 
-        }
-
-        private static void SendAuctionToTheChannel()
-        {
-
-            Console.WriteLine("write your message");
-            var message = Console.ReadLine();
-
-            var request = new BroadcastMessage { Text = message, AuctionId = Guid.NewGuid().ToString(), OwnerId = NodeId };
-            var response = broadcastClient?.Broadcast(request);
-            Console.WriteLine("Message sent to all nodes.");
         }
 
         private static void StartListeningBroadcastMessages()
@@ -145,10 +131,20 @@ namespace ConsoleApp2
                         if (!string.IsNullOrEmpty(message.Text) && !string.IsNullOrEmpty(message.AuctionId) && !string.IsNullOrEmpty(message.OwnerId))
                         {
                             Console.WriteLine($"Received broadcast: {message.Text}");
-                            var auctionResponse = new AuctionResponse { AuctionId = message.AuctionId, OwnerNodeId = message.OwnerId, Address = message.Address };
+                            var auctionResponse = new AuctionResponse
+                            {
+                                AuctionId = message.AuctionId,
+                                OwnerNodeId = message.OwnerId,
+                                Address = message.Address,
+                                AuctionRequest=new InitiateAuctionRequest
+                                {
+                                    StartingPrice = message.StartingPrice,
+                                    ItemName=message.ItemName
+                                }
+                            };
                             auctionCache.AddAuction(auctionResponse);
                         }
-                        
+
                     }
                 }
                 catch (RpcException ex) when (ex.StatusCode == StatusCode.Cancelled)
@@ -172,12 +168,35 @@ namespace ConsoleApp2
 
         private static void GetAllAuctions()
         {
+            var getAllAuctions = auctionCache.GetAuctions();
 
-            var getallNodes = seedClient.GetRegisteredNodes(new EmptyMsg());
+            foreach (var auction in getAllAuctions)
+            {
+                Console.WriteLine($"AuctionId: {auction.AuctionId} Item Name: {auction.AuctionRequest.ItemName}, with a starting price of {auction.AuctionRequest.StartingPrice}");
+            }
 
+            return;
+        }
 
+        private static void CreateAuction()
+        {
+            Console.WriteLine("Write Item Name");
+            var ItemName = Console.ReadLine();
 
-            throw new NotImplementedException();
+            Console.WriteLine("Write Starting Price");
+            var startingPrice = Console.ReadLine();
+
+            var request = new BroadcastMessage
+            {
+                Text = ItemName,
+                AuctionId = Guid.NewGuid().ToString(),
+                OwnerId = NodeId,
+                Address = $"http://{NodeHost}:{NodePort}",
+                ItemName = ItemName,
+                StartingPrice = Convert.ToDouble(startingPrice)
+            };
+            _ = broadcastClient?.Broadcast(request);
+            Console.WriteLine("Auction is sent the the network!");
         }
     }
 

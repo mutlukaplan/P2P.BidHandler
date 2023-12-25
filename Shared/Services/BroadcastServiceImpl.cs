@@ -21,13 +21,17 @@ namespace Shared.Services
         {
             var message = request.Text;
             var auction_id = request.AuctionId;
-            var ownerId= request.OwnerId;
+            var ownerId = request.OwnerId;
+            var item_name = request.ItemName;
+            var starting_price = request.StartingPrice;
 
             var response = new BroadcastMessage
             {
                 Text = message,
                 AuctionId = auction_id,
-                OwnerId=ownerId,
+                OwnerId = ownerId,
+                ItemName = item_name,
+                StartingPrice = starting_price,
             };
 
             // Broadcast the message to all connected clients.
@@ -60,8 +64,8 @@ namespace Shared.Services
                     };
 
                     // Send the message to the client.
-                    if(request!=null)
-                    await responseStream.WriteAsync(message);
+                    if (request != null)
+                        await responseStream.WriteAsync(message);
                 }
             }
             catch (RpcException ex) when (ex.StatusCode == StatusCode.Cancelled)

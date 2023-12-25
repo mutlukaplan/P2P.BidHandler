@@ -22,19 +22,20 @@ public static partial class BroadcastServiceReflection {
   static BroadcastServiceReflection() {
     byte[] descriptorData = global::System.Convert.FromBase64String(
         string.Concat(
-          "Ch1wcm90b3MvQnJvYWRjYXN0U2VydmljZS5wcm90byJXChBCcm9hZGNhc3RN",
-          "ZXNzYWdlEgwKBHRleHQYASABKAkSEgoKYXVjdGlvbl9pZBgCIAEoCRIQCghv",
-          "d25lcl9pZBgDIAEoCRIPCgdhZGRyZXNzGAQgASgJIhAKDkJyb2FkY2FzdEVt",
-          "cHR5MuEBChBCcm9hZGNhc3RTZXJ2aWNlEi8KCUJyb2FkY2FzdBIRLkJyb2Fk",
-          "Y2FzdE1lc3NhZ2UaDy5Ccm9hZGNhc3RFbXB0eRIxCglTdWJzY3JpYmUSDy5C",
-          "cm9hZGNhc3RFbXB0eRoRLkJyb2FkY2FzdE1lc3NhZ2UwARIvCgtVbnN1YnNj",
-          "cmliZRIPLkJyb2FkY2FzdEVtcHR5Gg8uQnJvYWRjYXN0RW1wdHkSOAoQUmVj",
-          "ZWl2ZUJyb2FkY2FzdBIPLkJyb2FkY2FzdEVtcHR5GhEuQnJvYWRjYXN0TWVz",
-          "c2FnZTABYgZwcm90bzM="));
+          "Ch1wcm90b3MvQnJvYWRjYXN0U2VydmljZS5wcm90byKCAQoQQnJvYWRjYXN0",
+          "TWVzc2FnZRIMCgR0ZXh0GAEgASgJEhIKCmF1Y3Rpb25faWQYAiABKAkSEAoI",
+          "b3duZXJfaWQYAyABKAkSDwoHYWRkcmVzcxgEIAEoCRIRCglpdGVtX25hbWUY",
+          "BSABKAkSFgoOc3RhcnRpbmdfcHJpY2UYBiABKAEiEAoOQnJvYWRjYXN0RW1w",
+          "dHky4QEKEEJyb2FkY2FzdFNlcnZpY2USLwoJQnJvYWRjYXN0EhEuQnJvYWRj",
+          "YXN0TWVzc2FnZRoPLkJyb2FkY2FzdEVtcHR5EjEKCVN1YnNjcmliZRIPLkJy",
+          "b2FkY2FzdEVtcHR5GhEuQnJvYWRjYXN0TWVzc2FnZTABEi8KC1Vuc3Vic2Ny",
+          "aWJlEg8uQnJvYWRjYXN0RW1wdHkaDy5Ccm9hZGNhc3RFbXB0eRI4ChBSZWNl",
+          "aXZlQnJvYWRjYXN0Eg8uQnJvYWRjYXN0RW1wdHkaES5Ccm9hZGNhc3RNZXNz",
+          "YWdlMAFiBnByb3RvMw=="));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-          new pbr::GeneratedClrTypeInfo(typeof(global::BroadcastMessage), global::BroadcastMessage.Parser, new[]{ "Text", "AuctionId", "OwnerId", "Address" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::BroadcastMessage), global::BroadcastMessage.Parser, new[]{ "Text", "AuctionId", "OwnerId", "Address", "ItemName", "StartingPrice" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::BroadcastEmpty), global::BroadcastEmpty.Parser, null, null, null, null, null)
         }));
   }
@@ -81,6 +82,8 @@ public sealed partial class BroadcastMessage : pb::IMessage<BroadcastMessage>
     auctionId_ = other.auctionId_;
     ownerId_ = other.ownerId_;
     address_ = other.address_;
+    itemName_ = other.itemName_;
+    startingPrice_ = other.startingPrice_;
     _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
   }
 
@@ -138,6 +141,30 @@ public sealed partial class BroadcastMessage : pb::IMessage<BroadcastMessage>
     }
   }
 
+  /// <summary>Field number for the "item_name" field.</summary>
+  public const int ItemNameFieldNumber = 5;
+  private string itemName_ = "";
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public string ItemName {
+    get { return itemName_; }
+    set {
+      itemName_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+    }
+  }
+
+  /// <summary>Field number for the "starting_price" field.</summary>
+  public const int StartingPriceFieldNumber = 6;
+  private double startingPrice_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public double StartingPrice {
+    get { return startingPrice_; }
+    set {
+      startingPrice_ = value;
+    }
+  }
+
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public override bool Equals(object other) {
@@ -157,6 +184,8 @@ public sealed partial class BroadcastMessage : pb::IMessage<BroadcastMessage>
     if (AuctionId != other.AuctionId) return false;
     if (OwnerId != other.OwnerId) return false;
     if (Address != other.Address) return false;
+    if (ItemName != other.ItemName) return false;
+    if (!pbc::ProtobufEqualityComparers.BitwiseDoubleEqualityComparer.Equals(StartingPrice, other.StartingPrice)) return false;
     return Equals(_unknownFields, other._unknownFields);
   }
 
@@ -168,6 +197,8 @@ public sealed partial class BroadcastMessage : pb::IMessage<BroadcastMessage>
     if (AuctionId.Length != 0) hash ^= AuctionId.GetHashCode();
     if (OwnerId.Length != 0) hash ^= OwnerId.GetHashCode();
     if (Address.Length != 0) hash ^= Address.GetHashCode();
+    if (ItemName.Length != 0) hash ^= ItemName.GetHashCode();
+    if (StartingPrice != 0D) hash ^= pbc::ProtobufEqualityComparers.BitwiseDoubleEqualityComparer.GetHashCode(StartingPrice);
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
     }
@@ -202,6 +233,14 @@ public sealed partial class BroadcastMessage : pb::IMessage<BroadcastMessage>
       output.WriteRawTag(34);
       output.WriteString(Address);
     }
+    if (ItemName.Length != 0) {
+      output.WriteRawTag(42);
+      output.WriteString(ItemName);
+    }
+    if (StartingPrice != 0D) {
+      output.WriteRawTag(49);
+      output.WriteDouble(StartingPrice);
+    }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(output);
     }
@@ -228,6 +267,14 @@ public sealed partial class BroadcastMessage : pb::IMessage<BroadcastMessage>
       output.WriteRawTag(34);
       output.WriteString(Address);
     }
+    if (ItemName.Length != 0) {
+      output.WriteRawTag(42);
+      output.WriteString(ItemName);
+    }
+    if (StartingPrice != 0D) {
+      output.WriteRawTag(49);
+      output.WriteDouble(StartingPrice);
+    }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(ref output);
     }
@@ -249,6 +296,12 @@ public sealed partial class BroadcastMessage : pb::IMessage<BroadcastMessage>
     }
     if (Address.Length != 0) {
       size += 1 + pb::CodedOutputStream.ComputeStringSize(Address);
+    }
+    if (ItemName.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(ItemName);
+    }
+    if (StartingPrice != 0D) {
+      size += 1 + 8;
     }
     if (_unknownFields != null) {
       size += _unknownFields.CalculateSize();
@@ -273,6 +326,12 @@ public sealed partial class BroadcastMessage : pb::IMessage<BroadcastMessage>
     }
     if (other.Address.Length != 0) {
       Address = other.Address;
+    }
+    if (other.ItemName.Length != 0) {
+      ItemName = other.ItemName;
+    }
+    if (other.StartingPrice != 0D) {
+      StartingPrice = other.StartingPrice;
     }
     _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
   }
@@ -305,6 +364,14 @@ public sealed partial class BroadcastMessage : pb::IMessage<BroadcastMessage>
           Address = input.ReadString();
           break;
         }
+        case 42: {
+          ItemName = input.ReadString();
+          break;
+        }
+        case 49: {
+          StartingPrice = input.ReadDouble();
+          break;
+        }
       }
     }
   #endif
@@ -334,6 +401,14 @@ public sealed partial class BroadcastMessage : pb::IMessage<BroadcastMessage>
         }
         case 34: {
           Address = input.ReadString();
+          break;
+        }
+        case 42: {
+          ItemName = input.ReadString();
+          break;
+        }
+        case 49: {
+          StartingPrice = input.ReadDouble();
           break;
         }
       }

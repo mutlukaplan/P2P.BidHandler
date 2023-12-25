@@ -65,7 +65,7 @@ namespace ConsoleApp1.Peer2
             Console.WriteLine("============================================================");
             Console.WriteLine("                    1. Get All Auctions");
             Console.WriteLine("                    2. Make a Bid for an auction");
-            Console.WriteLine("                    4. Send Message");
+            Console.WriteLine("                    3. Create Auction");
             Console.WriteLine("                    5. Exit");
             Console.WriteLine("------------------------------------------------------------");
         }
@@ -105,12 +105,9 @@ namespace ConsoleApp1.Peer2
                     case "2":
                         MakeBid();
                         break;
+
                     case "3":
                         CreateAuction();
-                        break;
-
-                    case "4":
-                        SendAuctionToTheChannel();
                         break;
 
                     case "5":
@@ -121,19 +118,26 @@ namespace ConsoleApp1.Peer2
 
         }
 
+
         private static void CreateAuction()
         {
-            throw new NotImplementedException();
-        }
+            Console.WriteLine("Write Item Name");
+            var ItemName = Console.ReadLine();
 
-        private static void SendAuctionToTheChannel()
-        {
-            Console.WriteLine("write your message");
-            var message = Console.ReadLine();
+            Console.WriteLine("Write Starting Price");
+            var startingPrice = Console.ReadLine();
 
-            var request = new BroadcastMessage { Text = message, AuctionId = Guid.NewGuid().ToString(), OwnerId = NodeId, Address = $"http://{NodeHost}:{NodePort}" };
+            var request = new BroadcastMessage
+            {
+                Text = ItemName,
+                AuctionId = Guid.NewGuid().ToString(),
+                OwnerId = NodeId,
+                Address = $"http://{NodeHost}:{NodePort}",
+                ItemName = ItemName,
+                StartingPrice = Convert.ToDouble(startingPrice)
+            };
             _ = broadcastClient?.Broadcast(request);
-            Console.WriteLine("Message sent to all nodes.");
+            Console.WriteLine("Auction is sent the the network!");
         }
 
         private static void StartListeningBroadcastMessages()
@@ -151,7 +155,17 @@ namespace ConsoleApp1.Peer2
                         if (!string.IsNullOrEmpty(message.Text) && !string.IsNullOrEmpty(message.AuctionId) && !string.IsNullOrEmpty(message.OwnerId))
                         {
                             Console.WriteLine($"Received broadcast: {message.Text}");
-                            var auctionResponse = new AuctionResponse { AuctionId = message.AuctionId, OwnerNodeId = message.OwnerId, Address = message.Address };
+                            var auctionResponse = new AuctionResponse
+                            {
+                                AuctionId = message.AuctionId,
+                                OwnerNodeId = message.OwnerId,
+                                Address = message.Address,
+                                AuctionRequest = new InitiateAuctionRequest
+                                {
+                                    StartingPrice = message.StartingPrice,
+                                    ItemName = message.ItemName
+                                }
+                            };
                             auctionCache.AddAuction(auctionResponse);
                         }
                     }
