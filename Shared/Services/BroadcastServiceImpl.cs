@@ -24,6 +24,7 @@ namespace Shared.Services
                 ItemName = item_name,
                 StartingPrice = starting_price,
                 Bidder = bidder,
+                Address = request.Address,
             };
 
             // Broadcast the message to all connected clients.

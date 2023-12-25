@@ -2,6 +2,7 @@
 using Grpc.Net.Client;
 using Microsoft.Extensions.DependencyInjection;
 using Shared.Services;
+using System.Collections.Concurrent;
 using System.Threading.Channels;
 
 namespace ConsoleApp1.Peer2
@@ -12,12 +13,12 @@ namespace ConsoleApp1.Peer2
         public static SeedNodeService.SeedNodeServiceClient? seedClient;
         public static BroadcastService.BroadcastServiceClient? broadcastClient;
         public static AuctionService.AuctionServiceClient? auctionClient;
+        //static readonly Dictionary<string, AuctionResponse> cacheDict;
         const int MainChannelPort = 50055;
         public static IAuctionCache auctionCache;
         public static string NodeId;
         public static string NodeHost;
         public static int NodePort;
-
 
         static Program()
         {
@@ -25,7 +26,8 @@ namespace ConsoleApp1.Peer2
             seedClient = new SeedNodeService.SeedNodeServiceClient(mainChannel);
             broadcastClient = new BroadcastService.BroadcastServiceClient(mainChannel);
             NodeId = Guid.NewGuid().ToString();
-            auctionCache = new AuctionCache();
+            //cacheDict= new Dictionary<string, AuctionResponse>();
+            //auctionCache = new AuctionCache(cacheDict);
             NodeHost = "localhost";
             NodePort = 50052;
         }
@@ -33,10 +35,14 @@ namespace ConsoleApp1.Peer2
         static async Task Main(string[] args)
         {
             var serviceProvider = new ServiceCollection()
-                    .AddSingleton<IAuctionCache, AuctionCache>() // Register your local service implementation.
+                    .AddSingleton<IAuctionCache, AuctionCache>()
+                    .AddSingleton<Dictionary<string, AuctionResponse>>()// Register your local service implementation.
                     .BuildServiceProvider();
 
+
             var serviceCache = serviceProvider.GetRequiredService<IAuctionCache>();
+
+            auctionCache = serviceCache;
 
             var server = new Server
             {
@@ -106,7 +112,7 @@ namespace ConsoleApp1.Peer2
                         GetAllAuctions();
                         break;
                     case "2":
-                        MakeBid(selection);
+                        MakeBid();
                         break;
 
                     case "3":
@@ -197,10 +203,12 @@ namespace ConsoleApp1.Peer2
             Console.WriteLine("Write Starting Price");
             var startingPrice = Console.ReadLine();
 
+            var auctionId = Guid.NewGuid().ToString();
+
             var request = new BroadcastMessage
             {
-                Text = "Add",
-                AuctionId = Guid.NewGuid().ToString(),
+                Text = "add",
+                AuctionId = auctionId,
                 OwnerId = NodeId,
                 Address = $"http://{NodeHost}:{NodePort}",
                 ItemName = ItemName,
@@ -208,7 +216,7 @@ namespace ConsoleApp1.Peer2
                 Bidder = string.Empty
             };
             _ = broadcastClient?.Broadcast(request);
-            Console.WriteLine("Auction is sent the the network!");
+            Console.WriteLine($"Auction is sent the the network! {auctionId} is created");
         }
 
         private static void StartListeningBroadcastMessages()
@@ -305,13 +313,17 @@ namespace ConsoleApp1.Peer2
         /// check if its yours, dont allow to make a bid
         /// </summary>
         /// <exception cref="NotImplementedException"></exception>
-        private static void MakeBid(string selection)
+        private static void MakeBid()
         {
+            Console.WriteLine("Pls enter auctionId to be selected");
+
+            var auctionSelection = Console.ReadLine();
+
             Console.WriteLine("pls enter your bid amount");
 
             var bidAmount = Console.ReadLine();
 
-            var auction = auctionCache.GetAuctions().Where(a => a.AuctionId == selection).FirstOrDefault();
+            var auction = auctionCache.GetAuctions().Where(a => a.AuctionId == auctionSelection).FirstOrDefault();
 
             if (auction.OwnerNodeId == NodeId)
             {
@@ -345,5 +357,10 @@ namespace ConsoleApp1.Peer2
 
             return;
         }
+    }
+
+    internal class AuctionDict
+    {
+        public static readonly ConcurrentDictionary<string, AuctionResponse> AuctionCache = new ConcurrentDictionary<string, AuctionResponse>();
     }
 }

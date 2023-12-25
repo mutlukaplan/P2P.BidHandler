@@ -1,10 +1,20 @@
 ﻿
 
+using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Net;
+
 namespace Shared.Services
 {
     public class AuctionCache : IAuctionCache
     {
-        private readonly Dictionary<string, AuctionResponse> _auctions = new();
+        public  readonly Dictionary<string, AuctionResponse> _auctions;
+        public AuctionCache(Dictionary<string, AuctionResponse> auctionCsh)
+        {
+            _auctions = auctionCsh;
+        }
+       // private readonly Dictionary<string, AuctionResponse> _auctions = new();
+        private object _lock = new object();
 
         public void AddAuction(AuctionResponse auction)
         {
@@ -12,9 +22,23 @@ namespace Shared.Services
             {
                 throw new ArgumentNullException(nameof(auction));
             }
+            var message = string.Empty;
 
-            auction.AuctionId = Guid.NewGuid().ToString();
-            _auctions[auction.AuctionId] = auction;
+            //lock (_lock)
+            //{
+
+            //}
+
+            if (_auctions.TryAdd(auction.AuctionId, auction))
+            {
+                message = $"Auction is added with the Id of {auction.AuctionId}";
+                Console.WriteLine(message);
+            }
+            else
+            {
+                message = $"Node '{auction.AuctionId}' is already registered.";
+                Console.WriteLine(message);
+            }
         }
 
         public void DeleteAuction(AuctionResponse auction)
