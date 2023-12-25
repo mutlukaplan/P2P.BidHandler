@@ -21,6 +21,7 @@ message PlaceBidRequest {
     string auction_id = 1;
     double bid_amount = 2;
     string bidder = 3;
+    string bidder_adress=4;
 }
 
 message PlaceBidResponse {
@@ -37,6 +38,7 @@ message AuctionResponse{
     string address=3;
     InitiateAuctionRequest auctionRequest=4;
     string bidder=5;
+    string bidder_adress=6;
 }
 
 

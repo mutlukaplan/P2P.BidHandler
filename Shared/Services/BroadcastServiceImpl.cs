@@ -15,7 +15,7 @@ namespace Shared.Services
             var item_name = request.ItemName;
             var starting_price = request.StartingPrice;
             var bidder = request.Bidder;
-
+            var bidder_address= request.BidderAddress;
             var response = new BroadcastMessage
             {
                 Text = message,
@@ -25,6 +25,7 @@ namespace Shared.Services
                 StartingPrice = starting_price,
                 Bidder = bidder,
                 Address = request.Address,
+                BidderAddress = bidder_address,
             };
 
             // Broadcast the message to all connected clients.

@@ -72,8 +72,10 @@ namespace Shared
             }
 
             var auctionAddress = auction.Address;
+            var bidderadress = auction.BidderAdress;
 
-            var channel = GrpcChannel.ForAddress(auctionAddress);
+
+            var channel = GrpcChannel.ForAddress(bidderadress);
             auctionClient = new AuctionService.AuctionServiceClient(channel);
             auctionClient.FinalizeAuction(auction);
 
@@ -98,7 +100,8 @@ namespace Shared
                 Address = $"http://{NodeHost}:{NodePort}",
                 ItemName = ItemName,
                 StartingPrice = Convert.ToDouble(startingPrice),
-                Bidder = string.Empty
+                Bidder = string.Empty,
+                BidderAddress = string.Empty,
             };
             _ = broadcastClient?.Broadcast(request);
             Console.WriteLine($"Auction is sent the the network! {auctionId} is created");
@@ -177,18 +180,20 @@ namespace Shared
 
             var auction = auctionCache.GetAuctions().Where(a => a.AuctionId == auctionSelection).FirstOrDefault();
 
+
             if (auction.OwnerNodeId == NodeId)
             {
                 Console.WriteLine("you can not make a bid for your own auction!");
                 return;
             }
+            var bidderAddress = $"http://{NodeHost}:{NodePort}";
 
             var auctionAddress = auction.Address;
 
             var channel = GrpcChannel.ForAddress(auctionAddress);
             auctionClient = new AuctionService.AuctionServiceClient(channel);
 
-            var bidReq = new PlaceBidRequest { AuctionId = auction.AuctionId, BidAmount = Convert.ToDouble(bidAmount), Bidder = NodeId };
+            var bidReq = new PlaceBidRequest { AuctionId = auction.AuctionId, BidAmount = Convert.ToDouble(bidAmount), Bidder = NodeId,BidderAdress= bidderAddress };
 
             var response = auctionClient.PlaceBid(bidReq);
 
@@ -291,7 +296,8 @@ namespace Shared
                     StartingPrice = message.StartingPrice,
                     ItemName = message.ItemName
                 },
-                Bidder = message.Bidder
+                Bidder = message.Bidder,
+                BidderAdress = message.BidderAddress
             };
             auctionCache.DeleteAuction(auctionResponse3);
         }
@@ -309,7 +315,8 @@ namespace Shared
                     StartingPrice = message.StartingPrice,
                     ItemName = message.ItemName
                 },
-                Bidder = message.Bidder
+                Bidder = message.Bidder,
+                BidderAdress = message.BidderAddress
             };
             auctionCache.UpdateAuction(auctionResponse2);
         }
@@ -327,7 +334,9 @@ namespace Shared
                     StartingPrice = message.StartingPrice,
                     ItemName = message.ItemName
                 },
-                Bidder = message.Bidder
+                Bidder = message.Bidder,
+                BidderAdress=message.BidderAddress
+               
             };
             auctionCache.AddAuction(auctionResponse);
         }
@@ -353,7 +362,6 @@ namespace Shared
 
         protected static void RunPeer()
         {
-            Console.WriteLine($"current NodeId:{NodeId}");
             mainChannel = GrpcChannel.ForAddress($"http://localhost:{MainChannelPort}");
             seedClient = new SeedNodeService.SeedNodeServiceClient(mainChannel);
             broadcastClient = new BroadcastService.BroadcastServiceClient(mainChannel);
@@ -370,6 +378,9 @@ namespace Shared
         protected static void ShowMenu()
         {
             Console.Clear();
+            var nodeAddress = $"http://{NodeHost}:{NodePort}";
+
+            Console.WriteLine($"Current Node Adress: {nodeAddress}, Node Id:{NodeId}");
             Console.WriteLine("\n\n\n");
             Console.WriteLine("                    P2p bidder ");
             Console.WriteLine("============================================================");

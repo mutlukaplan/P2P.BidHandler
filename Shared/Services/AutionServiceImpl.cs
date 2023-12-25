@@ -57,6 +57,8 @@ namespace Shared.Services
 
         public override Task<AuctionEmpty> FinalizeAuction(AuctionResponse request, ServerCallContext context)
         {
+            Console.WriteLine("Congrats..You re the winner. Bid is closed");
+
             UpdateChannelAboutAuctionEnded(request);
             // update all nodes
             return Task.FromResult(new AuctionEmpty());
@@ -64,6 +66,8 @@ namespace Shared.Services
 
         private void UpdateChannelAboutAuctionEnded(AuctionResponse request)
         {
+
+
             var broadCastRequest = new BroadcastMessage
             {
                 Text = "delete",
@@ -87,7 +91,8 @@ namespace Shared.Services
                 Address = auction.Address,
                 ItemName = auction.AuctionRequest.ItemName,
                 StartingPrice = bidAmount,
-                Bidder = request.Bidder
+                Bidder = request.Bidder,
+                BidderAddress= request.BidderAdress
             };
             _ = broadcastClient?.Broadcast(broadCastRequest);
         }

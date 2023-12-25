@@ -15,6 +15,7 @@ message BroadcastMessage {
     string item_name = 5;
     double starting_price = 6;
     string bidder=7;
+    string bidder_address=8;
 }
 
 message BroadcastEmpty {}
