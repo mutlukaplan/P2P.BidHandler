@@ -1,10 +1,4 @@
-﻿
-
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Net;
-
-namespace Shared.Services
+﻿namespace Shared.Services
 {
     public class AuctionCache : IAuctionCache
     {

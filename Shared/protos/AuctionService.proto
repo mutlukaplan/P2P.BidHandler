@@ -3,7 +3,6 @@ syntax = "proto3";
 service AuctionService {
 
     rpc PlaceBid (PlaceBidRequest) returns (PlaceBidResponse);
-    rpc GetAllAuctions(AuctionEmpty) returns (AuctionList);
     rpc FinalizeAuction(AuctionResponse) returns (AuctionEmpty);
 }
 
@@ -40,6 +39,5 @@ message AuctionResponse{
     string bidder=5;
     string bidder_adress=6;
 }
-
 
 message AuctionEmpty {}

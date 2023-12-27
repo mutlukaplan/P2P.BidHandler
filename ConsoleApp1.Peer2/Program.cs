@@ -2,18 +2,15 @@
 
 namespace ConsoleApp1.Peer2
 {
-    class Program : NodeBase
+    internal class Program : NodeBase
     {
-        static Program()
-        {
-            NodeHost = "localhost";
-            NodePort = 50052;
-        }
+        public override string NodeHost => "localhost";
+        public override int NodePort => 50052;
+        public static Program Instance => new();
 
         static async Task Main(string[] args)
         {
-            RunPeer();
+            Instance.RunPeer();
         }
     }
-
 }

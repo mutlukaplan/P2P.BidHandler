@@ -10,127 +10,59 @@ using System.Threading.Tasks;
 
 namespace Shared
 {
-    public class NodeBase
+    public abstract class NodeBase
     {
-        public static GrpcChannel? mainChannel;
-        public static SeedNodeService.SeedNodeServiceClient? seedClient;
-        public static BroadcastService.BroadcastServiceClient? broadcastClient;
-        public static AuctionService.AuctionServiceClient? auctionClient;
+        public virtual GrpcChannel? mainChannel { get; set; }
+        public virtual SeedNodeService.SeedNodeServiceClient? seedClient { get; set; }
+        public virtual BroadcastService.BroadcastServiceClient? broadcastClient { get; set; }
+        public virtual AuctionService.AuctionServiceClient? auctionClient { get; set; }
 
-        public const int MainChannelPort = 50055;
-        public static IAuctionCache auctionCache;
-        public static string NodeId;
-        public static string NodeHost;
-        public static int NodePort;
+        public virtual int MainChannelPort => 50055;
+        public virtual IAuctionCache auctionCache { get; set; }
+        public virtual string NodeId { get; set; }
+        public virtual string NodeHost { get; set; }
+        public virtual int NodePort { get; set; }
 
         public NodeBase()
         {
 
         }
 
-        private static void AcceptTheBid()
+        public virtual void RunPeer()
         {
-            Console.WriteLine("type Auction Id to be selected");
+            mainChannel = GrpcChannel.ForAddress($"http://localhost:{MainChannelPort}");
+            seedClient = new SeedNodeService.SeedNodeServiceClient(mainChannel);
+            broadcastClient = new BroadcastService.BroadcastServiceClient(mainChannel);
+            NodeId = Guid.NewGuid().ToString();
 
-            var auctionId = Console.ReadLine();
+            Server server = RegisterServices();
+            RegisterClientAndStart(NodePort, NodeId, server, NodeHost);
+            StartListeningBroadcastMessages();
+            ShowMenu();
+            GetInput();
+            server.ShutdownAsync().Wait();
+        }
 
-            Console.WriteLine("Type 'Y' to accept or 'N' to decline it");
+        protected virtual void ShowMenu()
+        {
+            Console.Clear();
+            var nodeAddress = $"http://{NodeHost}:{NodePort}";
 
-            var acceptOrNot = Console.ReadLine();
-
-            switch (acceptOrNot)
-            {
-                case "Y":
-                    AcceptTheBidbyId(auctionId);
-
-                    break;
-                case "N":
-                    //Decline();
-                    break;
-            }
-
+            Console.WriteLine($"Current Node Adress: {nodeAddress}, Node Id:{NodeId}");
+            Console.WriteLine("\n\n\n");
+            Console.WriteLine("                    P2p bidder ");
+            Console.WriteLine("============================================================");
+            Console.WriteLine("============================================================");
+            Console.WriteLine("                    1. Get All Auctions");
+            Console.WriteLine("                    2. Make a Bid for an auction");
+            Console.WriteLine("                    3. Create Auction");
+            Console.WriteLine("                    4. My Auctions");
+            Console.WriteLine("                    5. Accept the bid");
+            Console.WriteLine("                    6. Exit");
             Console.WriteLine("------------------------------------------------------------");
-            Console.WriteLine("-------------------------Main Menu--------------------------");
         }
 
-
-        /// <summary>
-        /// check if bid is your or not. Dont allow your node to accept the auction which it doesnt own.
-        /// </summary>
-        /// <param name="auctionId"></param>
-        /// <exception cref="NotImplementedException"></exception>
-        protected static void AcceptTheBidbyId(string? auctionId)
-        {
-
-            var auction = auctionCache.GetAuctions().Where(a => a.AuctionId == auctionId).FirstOrDefault();
-
-
-            if (auction.OwnerNodeId != NodeId)
-            {
-                Console.WriteLine("You can not accpet the bid for an auction you dont own!");
-                return;
-            }
-
-            var auctionAddress = auction.Address;
-            var bidderadress = auction.BidderAdress;
-
-
-            var channel = GrpcChannel.ForAddress(bidderadress);
-            auctionClient = new AuctionService.AuctionServiceClient(channel);
-            auctionClient.FinalizeAuction(auction);
-
-            Console.WriteLine("Bid is accepted!");
-        }
-
-        protected static void CreateAuction()
-        {
-            Console.WriteLine("Write Item Name");
-            var ItemName = Console.ReadLine();
-
-            Console.WriteLine("Write Starting Price");
-            var startingPrice = Console.ReadLine();
-
-            var auctionId = Guid.NewGuid().ToString();
-
-            var request = new BroadcastMessage
-            {
-                Text = "add",
-                AuctionId = auctionId,
-                OwnerId = NodeId,
-                Address = $"http://{NodeHost}:{NodePort}",
-                ItemName = ItemName,
-                StartingPrice = Convert.ToDouble(startingPrice),
-                Bidder = string.Empty,
-                BidderAddress = string.Empty,
-            };
-            _ = broadcastClient?.Broadcast(request);
-            Console.WriteLine($"Auction is sent the the network! {auctionId} is created");
-
-            Console.WriteLine("------------------------------------------------------------");
-            Console.WriteLine("-------------------------Main Menu--------------------------");
-        }
-
-        protected static void DoExit()
-        {
-            Environment.Exit(0);
-        }
-
-        protected static void GetAllAuctions()
-        {
-            var getAllAuctions = auctionCache.GetAuctions();
-
-            foreach (var auction in getAllAuctions)
-            {
-                Console.WriteLine($"AuctionId: {auction.AuctionId} Item Name: {auction.AuctionRequest.ItemName}, with a starting price of {auction.AuctionRequest.StartingPrice}");
-            }
-
-            Console.WriteLine("------------------------------------------------------------");
-            Console.WriteLine("-------------------------Main Menu--------------------------");
-
-            return;
-        }
-
-        protected static void GetInput()
+        protected virtual void GetInput()
         {
             while (true)
             {
@@ -164,11 +96,112 @@ namespace Shared
 
         }
 
+        protected void AcceptTheBid()
+        {
+            Console.WriteLine("type Auction Id to be selected");
+
+            var auctionId = Console.ReadLine();
+
+            Console.WriteLine("Type 'Y' to accept or 'N' to decline it");
+
+            var acceptOrNot = Console.ReadLine();
+
+            switch (acceptOrNot)
+            {
+                case "Y":
+                    AcceptTheBidbyId(auctionId);
+
+                    break;
+                case "N":
+                    //Decline();
+                    break;
+            }
+
+            Console.WriteLine("------------------------------------------------------------");
+            Console.WriteLine("-------------------------Main Menu--------------------------");
+        }
+
         /// <summary>
-        /// check if its yours, dont allow to make a bid
+        /// check if bid is your or not. Dont allow your node to accept the auction which it doesnt own.
         /// </summary>
+        /// <param name="auctionId"></param>
         /// <exception cref="NotImplementedException"></exception>
-        protected static void MakeBid()
+        protected virtual void AcceptTheBidbyId(string? auctionId)
+        {
+
+            var auction = auctionCache.GetAuctions().Where(a => a.AuctionId == auctionId).FirstOrDefault();
+
+            if (auction == null)
+            {
+                Console.WriteLine("There is no auction with this Id.");
+                return;
+            }
+
+            if (auction.OwnerNodeId != NodeId)
+            {
+                Console.WriteLine("You can not accpet the bid for an auction you dont own!");
+                return;
+            }
+
+            var auctionAddress = auction.Address;
+            var bidderadress = auction.BidderAdress;
+
+            var channel = GrpcChannel.ForAddress(bidderadress);
+            auctionClient = new AuctionService.AuctionServiceClient(channel);
+            auctionClient.FinalizeAuction(auction);
+
+            Console.WriteLine("Bid is accepted!");
+        }
+
+        protected virtual void CreateAuction()
+        {
+            Console.WriteLine("Write Item Name");
+            var ItemName = Console.ReadLine();
+
+            Console.WriteLine("Write Starting Price");
+            var startingPrice = Console.ReadLine();
+
+            var auctionId = Guid.NewGuid().ToString();
+
+            var request = new BroadcastMessage
+            {
+                Text = "add",
+                AuctionId = auctionId,
+                OwnerId = NodeId,
+                Address = $"http://{NodeHost}:{NodePort}",
+                ItemName = ItemName,
+                StartingPrice = Convert.ToDouble(startingPrice),
+                Bidder = string.Empty,
+                BidderAddress = string.Empty,
+            };
+            _ = broadcastClient?.Broadcast(request);
+            Console.WriteLine($"Auction is sent the the network! {auctionId} is created");
+
+            Console.WriteLine("------------------------------------------------------------");
+            Console.WriteLine("-------------------------Main Menu--------------------------");
+        }
+
+        protected static void DoExit()
+        {
+            Environment.Exit(0);
+        }
+
+        protected virtual void GetAllAuctions()
+        {
+            var getAllAuctions = auctionCache.GetAuctions();
+
+            foreach (var auction in getAllAuctions)
+            {
+                Console.WriteLine($"AuctionId: {auction.AuctionId} Item Name: {auction.AuctionRequest.ItemName}, with a starting price of {auction.AuctionRequest.StartingPrice}");
+            }
+
+            Console.WriteLine("------------------------------------------------------------");
+            Console.WriteLine("-------------------------Main Menu--------------------------");
+
+            return;
+        }
+
+        protected virtual void MakeBid()
         {
             Console.WriteLine("Pls enter auctionId to be selected");
 
@@ -178,10 +211,18 @@ namespace Shared
 
             var bidAmount = Console.ReadLine();
 
-             auctionSelection = auctionSelection.Replace(" ", "");
+            auctionSelection = auctionSelection.Replace(" ", "");
 
             var auction = auctionCache.GetAuctions().Where(a => a.AuctionId == auctionSelection).FirstOrDefault();
 
+            if (auction == null)
+            {
+                Console.WriteLine("There is no auction with this Id.");
+                Console.WriteLine("------------------------------------------------------------");
+                Console.WriteLine("-------------------------Main Menu--------------------------");
+                return;
+            }
+                
             if (auction.OwnerNodeId == NodeId)
             {
                 Console.WriteLine("you can not make a bid for your own auction!");
@@ -194,7 +235,7 @@ namespace Shared
             var channel = GrpcChannel.ForAddress(auctionAddress);
             auctionClient = new AuctionService.AuctionServiceClient(channel);
 
-            var bidReq = new PlaceBidRequest { AuctionId = auction.AuctionId, BidAmount = Convert.ToDouble(bidAmount), Bidder = NodeId,BidderAdress= bidderAddress };
+            var bidReq = new PlaceBidRequest { AuctionId = auction.AuctionId, BidAmount = Convert.ToDouble(bidAmount), Bidder = NodeId, BidderAdress = bidderAddress };
 
             var response = auctionClient.PlaceBid(bidReq);
 
@@ -207,7 +248,7 @@ namespace Shared
             Console.WriteLine("-------------------------Main Menu--------------------------");
         }
 
-        protected static void MyAuctions()
+        protected virtual void MyAuctions()
         {
             var getMyAuctions = auctionCache.GetAuctions().Where(p => p.OwnerNodeId == NodeId).ToList();
 
@@ -218,7 +259,7 @@ namespace Shared
             return;
         }
 
-        protected static void RegisterClientAndStart(int NodePort, string nodeId, Server server, string NodeHost)
+        protected virtual void RegisterClientAndStart(int NodePort, string nodeId, Server server, string NodeHost)
         {
             server.Start();
             const int MainChannelPort = 50055;
@@ -240,7 +281,7 @@ namespace Shared
             mainChannel.ShutdownAsync().Wait();
         }
 
-        protected static void StartListeningBroadcastMessages()
+        protected virtual void StartListeningBroadcastMessages()
         {
             var cancellationTokenSource = new CancellationTokenSource();
 
@@ -283,7 +324,7 @@ namespace Shared
             return;
         }
 
-        private static void DeleteFromCache(BroadcastMessage? message)
+        protected virtual void DeleteFromCache(BroadcastMessage? message)
         {
             Console.WriteLine($"Auction is  ended on the channel: Item Name:  {message.ItemName}, new bid:{message.StartingPrice} ");
             Console.WriteLine($"Winning bidder Id is {message.Bidder}, bidder address:  {message.Address}");
@@ -303,7 +344,7 @@ namespace Shared
             auctionCache.DeleteAuction(auctionResponse3);
         }
 
-        private static void UpdateCache(BroadcastMessage? message)
+        protected virtual void UpdateCache(BroadcastMessage? message)
         {
             Console.WriteLine($"Auction is  updated on the channel: Item Name:  {message.ItemName}, new bid:{message.StartingPrice} ");
             var auctionResponse2 = new AuctionResponse
@@ -322,7 +363,7 @@ namespace Shared
             auctionCache.UpdateAuction(auctionResponse2);
         }
 
-        private static void AddToCache(BroadcastMessage? message)
+        protected virtual void AddToCache(BroadcastMessage? message)
         {
             Console.WriteLine($"New Auction added to the channel: Item Name:  {message.ItemName}, current price:{message.StartingPrice} ");
             var auctionResponse = new AuctionResponse
@@ -336,13 +377,13 @@ namespace Shared
                     ItemName = message.ItemName
                 },
                 Bidder = message.Bidder,
-                BidderAdress=message.BidderAddress
-               
+                BidderAdress = message.BidderAddress
+
             };
             auctionCache.AddAuction(auctionResponse);
         }
 
-        protected static Server RegisterServices()
+        protected virtual Server RegisterServices()
         {
             var serviceProvider = new ServiceCollection()
                     .AddSingleton<IAuctionCache, AuctionCache>()
@@ -359,40 +400,6 @@ namespace Shared
                 Ports = { new ServerPort(NodeHost, NodePort, ServerCredentials.Insecure) }
             };
             return server;
-        }
-
-        protected static void RunPeer()
-        {
-            mainChannel = GrpcChannel.ForAddress($"http://localhost:{MainChannelPort}");
-            seedClient = new SeedNodeService.SeedNodeServiceClient(mainChannel);
-            broadcastClient = new BroadcastService.BroadcastServiceClient(mainChannel);
-            NodeId = Guid.NewGuid().ToString();
-
-            Server server = RegisterServices();
-            RegisterClientAndStart(NodePort, NodeId, server, NodeHost);
-            StartListeningBroadcastMessages();
-            ShowMenu();
-            GetInput();
-            server.ShutdownAsync().Wait();
-        }
-
-        protected static void ShowMenu()
-        {
-            Console.Clear();
-            var nodeAddress = $"http://{NodeHost}:{NodePort}";
-
-            Console.WriteLine($"Current Node Adress: {nodeAddress}, Node Id:{NodeId}");
-            Console.WriteLine("\n\n\n");
-            Console.WriteLine("                    P2p bidder ");
-            Console.WriteLine("============================================================");
-            Console.WriteLine("============================================================");
-            Console.WriteLine("                    1. Get All Auctions");
-            Console.WriteLine("                    2. Make a Bid for an auction");
-            Console.WriteLine("                    3. Create Auction");
-            Console.WriteLine("                    4. My Auctions");
-            Console.WriteLine("                    5. Accept the bid");
-            Console.WriteLine("                    6. Exit");
-            Console.WriteLine("------------------------------------------------------------");
         }
     }
 }
