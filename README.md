@@ -10,6 +10,18 @@ A demo project that implements a basic Peer-to-Peer (P2P) network using Google g
 - **Shared Service Layer**: Contains all protocol services used by nodes for seamless integration.
 - **Bid Management**: Each node tracks auction status, manages bids, and broadcasts bid acceptance and closure.
 
+## How It Works
+
+- **Seed Node**: `P2P.SeedNode` serves as the bootstrapper node where all peers register themselves upon initialization. It maintains knowledge of all nodes connected with gRPC socket connections.
+- **Shared Layer**: A separate shared layer implements all protocol services, enabling nodes to communicate using a common interface.
+- **Cache Service**: Each node has a cache service that stores any auctions it creates.
+- **Auction and Bidding Process**:
+  - Nodes can create auctions, which are broadcasted across the network.
+  - When a node wants to view all auctions, it connects to the seed server to retrieve a list of registered nodes.
+  - Nodes maintain the latest bid status for each auction.
+  - If a client wants to accept a specific bid, it sends a message to the network indicating that the bid is closed. The auction is then removed from the cache of all nodes.
+  - Nodes are prohibited from bidding on auctions they create.
+
 ## Getting Started
 
 ### Prerequisites
@@ -24,3 +36,21 @@ A demo project that implements a basic Peer-to-Peer (P2P) network using Google g
    ```bash
    git clone https://github.com/mutlukaplan/P2P.BidHandler.git
    cd p2p-network-demo
+
+   ### Run the Seed Node
+
+To run the Seed Node (bootstrapper), use the following command:
+
+2. **Run seed nood first**
+
+```bash
+dotnet run --project P2P.SeedNode
+
+
+3. **Run other nodes **
+
+```bash
+dotnet run --project P2P.Node1
+dotnet run --project P2P.Node2
+dotnet run --project P2P.Node3
+
