@@ -43,11 +43,11 @@ To run the Seed Node (bootstrapper), use the following command:
 
 2. **Run seed nood first**
 
+
 ```bash
 dotnet run --project P2P.SeedNode
 
-
-3. **Run other nodes **
+3. **Run other nodes**
 
 ```bash
 dotnet run --project P2P.Node1
@@ -55,9 +55,7 @@ dotnet run --project P2P.Node2
 dotnet run --project P2P.Node3
 
 
-## Running Example Scenario
-
-### Example Scenario
+4. **Running Example Scenario**
 
 1. **Client#1** opens auction: sell `a box of apple` for `300`.
 2. **Client#2** opens auction: sell `a box of banana` for `350`.
