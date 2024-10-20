@@ -61,10 +61,10 @@ dotnet run --project P2P.Node3
 
 4. **Running Example Scenario**
 
-1. **Client#1** opens auction: sell `a box of apple` for `300`.
-2. **Client#2** opens auction: sell `a box of banana` for `350`.
-2. **Client#3** opens auction: sell `a box of avocado` for `400`.
-3. **Client#1** bids `400` for Client#1's `a box of apple`.
-4. **Client#3** bids `600` for the same.
-6. **Client#1** finalizes auction, informing all about the sale to **Client#3** at `600`.
+- Client#1 opens auction: sell `a box of apple` for `300`.
+- Client#2 opens auction: sell `a box of banana` for `350`.
+- Client#3 opens auction: sell `a box of avocado` for `400`.
+- Client#1 bids `400` for Client#1's `a box of apple`.
+- Client#3 bids `600` for the same.
+- Client#1 finalizes auction, informing all about the sale to **Client#3** at `600`.
 
