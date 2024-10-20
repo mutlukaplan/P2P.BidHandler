@@ -166,7 +166,7 @@ Fractal nodes in Mixture:
 
 Mixture Variants:
 
-https://user-images.githubusercontent.com/6877923/115474571-03c75800-a23e-11eb-8096-8973aad5fa9f.mp4
+https://mutlukaplan.github.io/P2P.BidHandler/P2p_Bidder_Example.mp4
 
 
 Earth Heightmap node:
