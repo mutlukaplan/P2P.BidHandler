@@ -37,7 +37,7 @@ A demo project that implements a basic Peer-to-Peer (P2P) network using Google g
    git clone https://github.com/mutlukaplan/P2P.BidHandler.git
    cd p2p-network-demo
 
-   // Clone the repo
+   ### Clone the repo
    ```
 To run the Seed Node (bootstrapper), use the following command:
 
