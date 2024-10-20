@@ -26,7 +26,7 @@ A demo project that implements a basic Peer-to-Peer (P2P) network using Google g
 
 ### Prerequisites
 
-- .NET Core 3.1+ installed
+- .NET 6.0+ installed
 - Google gRPC tools for C#
 
 ### Setup
@@ -53,4 +53,16 @@ dotnet run --project P2P.SeedNode
 dotnet run --project P2P.Node1
 dotnet run --project P2P.Node2
 dotnet run --project P2P.Node3
+
+
+## Running Example Scenario
+
+### Example Scenario
+
+1. **Client#1** opens auction: sell `a box of apple` for `300`.
+2. **Client#2** opens auction: sell `a box of banana` for `350`.
+2. **Client#3** opens auction: sell `a box of avocado` for `400`.
+3. **Client#1** bids `400` for Client#1's `a box of apple`.
+4. **Client#3** bids `600` for the same.
+6. **Client#1** finalizes auction, informing all about the sale to **Client#3** at `600`.
 
