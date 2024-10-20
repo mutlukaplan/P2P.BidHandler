@@ -68,3 +68,9 @@ dotnet run --project P2P.Node3
 - Client#3 bids `600` for the same.
 - Client#1 finalizes auction, informing all about the sale to **Client#3** at `600`.
 
+## Demo Video
+
+Check out the [video walkthrough](https://github.com/mutlukaplan/P2P.BidHandler.git/raw/Refactor/P2p_Bidder_Example.mp4) for a detailed demonstration of the project.
+
+
+
