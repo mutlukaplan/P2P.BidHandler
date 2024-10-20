@@ -37,7 +37,7 @@ A demo project that implements a basic Peer-to-Peer (P2P) network using Google g
    git clone https://github.com/mutlukaplan/P2P.BidHandler.git
    cd p2p-network-demo
 
-   ### Run the Seed Node
+   ### Clone the repo
 
 To run the Seed Node (bootstrapper), use the following command:
 
@@ -47,12 +47,16 @@ To run the Seed Node (bootstrapper), use the following command:
 ```bash
 dotnet run --project P2P.SeedNode
 
+### Run the Seed Node
+```
+
 3. **Run other nodes**
 
 ```bash
 dotnet run --project P2P.Node1
 dotnet run --project P2P.Node2
 dotnet run --project P2P.Node3
+```
 
 
 4. **Running Example Scenario**
