@@ -10,3 +10,4 @@ C:\Users\mutlu\source\repos\ConsoleApp2\Shared\obj\Debug\net6.0\Shared.dll
 C:\Users\mutlu\source\repos\ConsoleApp2\Shared\obj\Debug\net6.0\refint\Shared.dll
 C:\Users\mutlu\source\repos\ConsoleApp2\Shared\obj\Debug\net6.0\Shared.pdb
 C:\Users\mutlu\source\repos\ConsoleApp2\Shared\obj\Debug\net6.0\ref\Shared.dll
+C:\Users\mutlu\source\repos\ConsoleApp2\Shared\obj\Debug\net6.0\Shared.sourcelink.json

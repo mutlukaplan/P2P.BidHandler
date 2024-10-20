@@ -23,9 +23,10 @@ C:\Users\mutlu\source\repos\ConsoleApp2\P2P.Node3\obj\Debug\net6.0\P2P.Node3.Gen
 C:\Users\mutlu\source\repos\ConsoleApp2\P2P.Node3\obj\Debug\net6.0\P2P.Node3.AssemblyInfoInputs.cache
 C:\Users\mutlu\source\repos\ConsoleApp2\P2P.Node3\obj\Debug\net6.0\P2P.Node3.AssemblyInfo.cs
 C:\Users\mutlu\source\repos\ConsoleApp2\P2P.Node3\obj\Debug\net6.0\P2P.Node3.csproj.CoreCompileInputs.cache
-C:\Users\mutlu\source\repos\ConsoleApp2\P2P.Node3\obj\Debug\net6.0\P2P.Node3.csproj.CopyComplete
 C:\Users\mutlu\source\repos\ConsoleApp2\P2P.Node3\obj\Debug\net6.0\P2P.Node3.dll
 C:\Users\mutlu\source\repos\ConsoleApp2\P2P.Node3\obj\Debug\net6.0\refint\P2P.Node3.dll
 C:\Users\mutlu\source\repos\ConsoleApp2\P2P.Node3\obj\Debug\net6.0\P2P.Node3.pdb
 C:\Users\mutlu\source\repos\ConsoleApp2\P2P.Node3\obj\Debug\net6.0\P2P.Node3.genruntimeconfig.cache
 C:\Users\mutlu\source\repos\ConsoleApp2\P2P.Node3\obj\Debug\net6.0\ref\P2P.Node3.dll
+C:\Users\mutlu\source\repos\ConsoleApp2\P2P.Node3\obj\Debug\net6.0\P2P.Node3.sourcelink.json
+C:\Users\mutlu\source\repos\ConsoleApp2\P2P.Node3\obj\Debug\net6.0\P2P.Node3.csproj.Up2Date

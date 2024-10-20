@@ -19,7 +19,6 @@ C:\Users\mutlu\source\repos\ConsoleApp2\P2P.SeedNode\obj\Debug\net6.0\P2P.SeedNo
 C:\Users\mutlu\source\repos\ConsoleApp2\P2P.SeedNode\obj\Debug\net6.0\P2P.SeedNode.AssemblyInfoInputs.cache
 C:\Users\mutlu\source\repos\ConsoleApp2\P2P.SeedNode\obj\Debug\net6.0\P2P.SeedNode.AssemblyInfo.cs
 C:\Users\mutlu\source\repos\ConsoleApp2\P2P.SeedNode\obj\Debug\net6.0\P2P.SeedNode.csproj.CoreCompileInputs.cache
-C:\Users\mutlu\source\repos\ConsoleApp2\P2P.SeedNode\obj\Debug\net6.0\P2P.SeedNode.csproj.CopyComplete
 C:\Users\mutlu\source\repos\ConsoleApp2\P2P.SeedNode\obj\Debug\net6.0\P2P.SeedNode.dll
 C:\Users\mutlu\source\repos\ConsoleApp2\P2P.SeedNode\obj\Debug\net6.0\refint\P2P.SeedNode.dll
 C:\Users\mutlu\source\repos\ConsoleApp2\P2P.SeedNode\obj\Debug\net6.0\P2P.SeedNode.pdb
@@ -29,3 +28,5 @@ C:\Users\mutlu\source\repos\ConsoleApp2\P2P.SeedNode\bin\Debug\net6.0\Shared.dll
 C:\Users\mutlu\source\repos\ConsoleApp2\P2P.SeedNode\bin\Debug\net6.0\Shared.pdb
 C:\Users\mutlu\source\repos\ConsoleApp2\P2P.SeedNode\bin\Debug\net6.0\Microsoft.Extensions.DependencyInjection.dll
 C:\Users\mutlu\source\repos\ConsoleApp2\P2P.SeedNode\bin\Debug\net6.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\mutlu\source\repos\ConsoleApp2\P2P.SeedNode\obj\Debug\net6.0\P2P.SeedNode.sourcelink.json
+C:\Users\mutlu\source\repos\ConsoleApp2\P2P.SeedNode\obj\Debug\net6.0\P2P.Seed.3C7D5706.Up2Date
