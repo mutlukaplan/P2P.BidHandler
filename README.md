@@ -70,10 +70,7 @@ dotnet run --project P2P.Node3
 
 ## Demo Video
 
-Demo Video:
-
-https://mutlukaplan.github.io/P2P.BidHandler/P2p_Bidder_Example.mp4
-
+Check out the [video walkthrough](https://mutlukaplan.github.io/P2P.BidHandler/P2p_Bidder_Example.mp4) for a detailed demonstration of the project.
 
 
 
